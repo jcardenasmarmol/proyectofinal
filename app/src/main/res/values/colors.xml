@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimaryDark">#0288D1</color>
+    <color name="colorAccent">#448AFF</color>
+    <color name="colorPrimaryLight">#B3E5FC</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorIcons">#FFFFFF</color>
+    <color name="colorDivider">#BDBDBD</color>
+
+    <color name="sunflower_black">#de000000</color>
+    <color name="sunflower_gray_50">#fafafa</color>
+    <color name="sunflower_gray_50_a600">#99fafafa</color>
+    <color name="sunflower_green_300">#6dc790</color>
+    <color name="sunflower_green_500">#49bb79</color>
+    <color name="sunflower_green_700">#005d2b</color>
+    <color name="sunflower_green_900">#1a231e</color>
+    <color name="sunflower_white">#deffffff</color>
+    <color name="sunflower_yellow_300">#f8f99f</color>
+    <color name="sunflower_yellow_500">#ffff63</color>
+</resources>
