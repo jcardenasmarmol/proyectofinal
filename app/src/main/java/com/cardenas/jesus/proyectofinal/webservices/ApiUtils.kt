@@ -30,5 +30,14 @@ class ApiUtils {
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
                 .build()
         }
+
+        //Para alvaro
+        fun generateRetrofitAPIAlvaroInstance() : Retrofit {
+            return Retrofit.Builder()
+                .baseUrl("URL BASE")
+                .client(generateOkHttpBuilder())
+                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+                .build()
+        }
     }
 }

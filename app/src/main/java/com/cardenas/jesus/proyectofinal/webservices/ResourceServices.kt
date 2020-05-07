@@ -26,4 +26,8 @@ interface ResourceServices {
 
     @GET("arduino/portables")
     fun requestPortableDeviceData() : Call<List<DatosDispositivoPortableDTO>>
+
+    //Alvaro
+    @GET("")
+    fun request(@Query("")nombre :String) : Call<List<DatosHistoricosDTO>>
 }
