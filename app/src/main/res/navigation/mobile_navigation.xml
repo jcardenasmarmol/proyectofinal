@@ -12,28 +12,27 @@
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-            app:destination="@id/nav_home_second" />
+            android:id="@+id/action_go_to_search"
+            app:destination="@id/nav_home_add" />
+
     </fragment>
     <fragment
-        android:id="@+id/nav_home_second"
-        android:name="com.cardenas.jesus.proyectofinal.ui.home.HomeSecondFragment"
-        android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
+        android:id="@+id/nav_home_add"
+        android:name="com.cardenas.jesus.proyectofinal.view.fragments.SearchFragment"
+        android:label="@string/add_estacion"
+        tools:layout="@layout/fragment_search">
+
         <action
-            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
+            android:id="@+id/action_go_to_HomeFragment"
             app:destination="@id/nav_home" />
 
-        <argument
-            android:name="myArg"
-            app:argType="string" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.cardenas.jesus.proyectofinal.view.fragments.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery">
+        android:id="@+id/nav_consulta_historicos"
+        android:name="com.cardenas.jesus.proyectofinal.view.fragments.ConsultaHistoricosFragment"
+        android:label="@string/menu_historicos"
+        tools:layout="@layout/fragment_consulta_historicos">
         <action
             android:id="@+id/action_go_graphFragment"
             app:destination="@id/graph"
@@ -41,16 +40,36 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.cardenas.jesus.proyectofinal.view.fragments.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_arduino_ultimos"
+        android:name="com.cardenas.jesus.proyectofinal.view.fragments.UltimosArduinoFragment"
+        android:label="@string/menu_arduino_ult"
+        tools:layout="@layout/fragment_ultimos_arduino" />
+
+    <fragment
+        android:id="@+id/nav_consulta_arduino"
+        android:name="com.cardenas.jesus.proyectofinal.view.fragments.ConsultaArduinoFragment"
+        android:label="@string/menu_arduino"
+        tools:layout="@layout/fragment_consulta_historicos">
+        <action
+            android:id="@+id/action_go_graphFragment"
+            app:destination="@id/graph"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_disp_movil"
+        android:name="com.cardenas.jesus.proyectofinal.view.fragments.DispMovilMapsFragment"
+        android:label="@string/menu_arduino"
+        tools:layout="@layout/fragment_disp_movil_maps"/>
 
     <fragment
         android:id="@+id/graph"
         android:name="com.cardenas.jesus.proyectofinal.view.fragments.GraphFragment"
         android:label="Grafica"
         tools:layout="@layout/fragment_graph" >
+        <argument
+            android:name="consultaArduino"
+            app:argType="boolean"
+            android:defaultValue="false" />
         <argument
             android:name="fechaInicial"
             app:argType="string"
@@ -59,9 +78,6 @@
             android:name="fechaFinal"
             app:argType="string"
             android:defaultValue="2020-04-15" />
-        <argument
-            android:name="estacion"
-            app:argType="integer"
-            android:defaultValue="8495" />
+
     </fragment>
 </navigation>

@@ -11,21 +11,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.birbit.android.jobqueue.JobManager
-import com.birbit.android.jobqueue.Params
-import com.birbit.android.jobqueue.config.Configuration
 import com.cardenas.jesus.proyectofinal.AppConstants
 import com.cardenas.jesus.proyectofinal.R
 import com.cardenas.jesus.proyectofinal.DatePickerFragment
-import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
-import com.cardenas.jesus.proyectofinal.tasks.GetHistoricosPorFecha
-import com.cardenas.jesus.proyectofinal.view.MainView
-import com.cardenas.jesus.proyectofinal.view.adapters.DatosAirQualiyAdapter
-import kotlinx.android.synthetic.main.fragment_gallery.*
-import kotlin.math.round
 
-class GalleryFragment : Fragment() {
+class ConsultaHistoricosFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -33,7 +23,7 @@ class GalleryFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_gallery, container, false)
+        val view = inflater.inflate(R.layout.fragment_consulta_historicos, container, false)
         val button = view.findViewById<Button>(R.id.button)
         val estacion = view.findViewById<Spinner>(R.id.estacion)
         val fechaInicial = view.findViewById<TextView>(R.id.fechaInicial)

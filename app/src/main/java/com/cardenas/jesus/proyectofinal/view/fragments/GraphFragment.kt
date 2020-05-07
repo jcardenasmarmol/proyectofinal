@@ -5,32 +5,71 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import android.widget.Switch
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.birbit.android.jobqueue.Job
 import com.birbit.android.jobqueue.JobManager
 import com.birbit.android.jobqueue.Params
 import com.birbit.android.jobqueue.config.Configuration
 import com.cardenas.jesus.proyectofinal.R
 import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
+import com.cardenas.jesus.proyectofinal.tasks.GetDatosArduinoPorFecha
 import com.cardenas.jesus.proyectofinal.tasks.GetHistoricosPorFecha
 import com.cardenas.jesus.proyectofinal.view.MainView
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IFillFormatter
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.fragment_graph.*
 import java.util.*
 
-class GraphFragment : Fragment(), MainView {
+class GraphFragment : Fragment(), MainView, CompoundButton.OnCheckedChangeListener {
+
+    lateinit var datos : List<DatosAirQualityModel?>
+    lateinit var setCO : LineDataSet
+    lateinit var setNO2 : LineDataSet
+    lateinit var setO3 : LineDataSet
+    lateinit var setSO2 : LineDataSet
+    lateinit var setPM25 : LineDataSet
+    lateinit var setPM10 : LineDataSet
+    lateinit var setNO : LineDataSet
+    lateinit var setNH3 : LineDataSet
+    lateinit var setCO2 : LineDataSet
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_graph, container, false)
+        val switchCO = view.findViewById<Switch>(R.id.switchCO)
+        switchCO.setOnCheckedChangeListener(this)
+        val switchNO2 = view.findViewById<Switch>(R.id.switchNO2)
+        switchNO2.setOnCheckedChangeListener(this)
+        val switchO3 = view.findViewById<Switch>(R.id.switchO3)
+        switchO3.setOnCheckedChangeListener(this)
+        val switchSO2 = view.findViewById<Switch>(R.id.switchSO2)
+        switchSO2.setOnCheckedChangeListener(this)
+        val switchPM25 = view.findViewById<Switch>(R.id.switchPM25)
+        switchPM25.setOnCheckedChangeListener(this)
+        val switchPM10 = view.findViewById<Switch>(R.id.switchPM10)
+        switchPM10.setOnCheckedChangeListener(this)
+        val switcNO = view.findViewById<Switch>(R.id.switchNO)
+        switcNO.setOnCheckedChangeListener(this)
+        val switchNH3 = view.findViewById<Switch>(R.id.switchNH3)
+        switchNH3.setOnCheckedChangeListener(this)
+        val switchCO2 = view.findViewById<Switch>(R.id.switchCO2)
+        switchCO2.setOnCheckedChangeListener(this)
+        val fechaInicial = view.findViewById<TextView>(R.id.fechaInicial)
+        fechaInicial.text = arguments?.getString("fechaInicial") ?: ""
+        val fechaFinal = view.findViewById<TextView>(R.id.fechaFinal)
+        fechaFinal.text = arguments?.getString("fechaFinal") ?: ""
         loadData()
         return view
     }
+
 
     private fun loadData() {
         val builder = this.context?.let {
@@ -43,19 +82,31 @@ class GraphFragment : Fragment(), MainView {
 
 
         val jobManager = JobManager(builder?.build())
+        val arduino = arguments?.getBoolean("consultaArduino") ?: false
 
-        val serviceJob = GetHistoricosPorFecha(
-            Params(50).requireNetwork(),
-            this, arguments?.getInt("estacion") ?: 8495,
-            arguments?.getString("fechaInicial") ?: "2020-01-01",
-            arguments?.getString("fechaFinal") ?: "2020-01-15"
-        )
+        lateinit var serviceJob : Job
+        if (arduino){
+            serviceJob = GetDatosArduinoPorFecha(
+                Params(50).requireNetwork(),
+                this, arguments?.getString("estacion") ?: "Spain",
+                arguments?.getString("fechaInicial") ?: "2020-01-01",
+                arguments?.getString("fechaFinal") ?: "2020-01-15"
+            )
+        }else{
+            serviceJob = GetHistoricosPorFecha(
+                Params(50).requireNetwork(),
+                this, arguments?.getInt("estacion") ?: 8495,
+                arguments?.getString("fechaInicial") ?: "2020-01-01",
+                arguments?.getString("fechaFinal") ?: "2020-01-15"
+            )
+        }
+
         jobManager.addJobInBackground(serviceJob)
         jobManager.start()
     }
 
     override fun setDataSet(result: List<DatosAirQualityModel?>) {
-
+        datos = result
         chart.setViewPortOffsets(0f, 0f, 0f, 0f)
 
         // no description text
@@ -89,12 +140,13 @@ class GraphFragment : Fragment(), MainView {
         // add data
         setData(result)
 
-        chart.legend.isEnabled = false
+        chart.legend.isEnabled = true
 
         chart.animateXY(2000, 2000)
 
         loadingView.visibility = View.GONE
         chart.visibility = View.VISIBLE
+        contenedor.visibility = View.VISIBLE
         // don't forget to refresh the drawing
         chart.invalidate()
 
@@ -106,36 +158,182 @@ class GraphFragment : Fragment(), MainView {
         val valuesCO = ArrayList<Entry>()
         val valuesNO2 = ArrayList<Entry>()
         val valuesO3 = ArrayList<Entry>()
+        val valuesSO2 = ArrayList<Entry>()
+        val valuesPM25 = ArrayList<Entry>()
+        val valuesPM10 = ArrayList<Entry>()
+        val valuesNO = ArrayList<Entry>()
+        val valuesNH3 = ArrayList<Entry>()
+        val valuesCO2 = ArrayList<Entry>()
 
         var count = 1f
         result.map { data ->
-            data?.contaminantes?.get("co").let {
-                valuesCO.add(Entry(count, it?.toFloat() ?: 0f)) }
-            data?.contaminantes?.get("no2").let {
-                valuesNO2.add(Entry(count, it?.toFloat() ?: 0f)) }
-            data?.contaminantes?.get("o3").let {
-                valuesO3.add(Entry(count, it?.toFloat() ?: 0f)) }
+            data?.contaminantes?.get("co")?.let {
+                valuesCO.add(Entry(count, it?.toFloat())) }
+            data?.contaminantes?.get("no2")?.let {
+                valuesNO2.add(Entry(count, it?.toFloat()))}
+            data?.contaminantes?.get("o3")?.let {
+                valuesO3.add(Entry(count, it?.toFloat())) }
+            data?.contaminantes?.get("so2")?.let {
+                valuesSO2.add(Entry(count, it?.toFloat())) }
+            data?.contaminantes?.get("pm25")?.let {
+                valuesPM25.add(Entry(count, it?.toFloat())) }
+            data?.contaminantes?.get("pm10")?.let {
+                valuesPM10.add(Entry(count, it?.toFloat())) }
+            data?.contaminantes?.get("no")?.let {
+                valuesNO.add(Entry(count, it?.toFloat())) }
+            data?.contaminantes?.get("nh3")?.let {
+                valuesNH3.add(Entry(count, it?.toFloat())) }
+            data?.contaminantes?.get("co2")?.let {
+                valuesCO2.add(Entry(count, it?.toFloat())) }
             count++
         }
 
-        val setCO = LineDataSet(valuesCO, "CO")
+        setCO = LineDataSet(valuesCO, "CO")
         setCO.mode = LineDataSet.Mode.CUBIC_BEZIER
         setCO.color = Color.GREEN
-        val setNO2 = LineDataSet(valuesNO2, "NO2")
+        setNO2 = LineDataSet(valuesNO2, "NO2")
         setNO2.mode = LineDataSet.Mode.CUBIC_BEZIER
         setNO2.color = Color.CYAN
-        val setO3 = LineDataSet(valuesO3, "O3")
+        setO3 = LineDataSet(valuesO3, "O3")
         setO3.mode = LineDataSet.Mode.CUBIC_BEZIER
         setO3.color = Color.MAGENTA
+        setSO2 = LineDataSet(valuesSO2, "SO2")
+        setSO2.mode = LineDataSet.Mode.CUBIC_BEZIER
+        setSO2.color = Color.BLACK
+        setPM25 = LineDataSet(valuesPM25, "PM25")
+        setPM25.mode = LineDataSet.Mode.CUBIC_BEZIER
+        setPM25.color = Color.YELLOW
+        setPM10 = LineDataSet(valuesPM10, "PM10")
+        setPM10.mode = LineDataSet.Mode.CUBIC_BEZIER
+        setPM10.color = Color.LTGRAY
+        setNO = LineDataSet(valuesNO, "NO")
+        setNO.mode = LineDataSet.Mode.CUBIC_BEZIER
+        setNO.color = Color.RED
+        setNH3 = LineDataSet(valuesNH3, "NH3")
+        setNH3.mode = LineDataSet.Mode.CUBIC_BEZIER
+        setNH3.color = Color.DKGRAY
+        setCO2 = LineDataSet(valuesCO2, "CO2")
+        setCO2.mode = LineDataSet.Mode.CUBIC_BEZIER
+        setCO2.color = Color.BLUE
 
 
-        val data = LineData(listOf(setCO, setNO2, setO3))
+        var lista = mutableListOf<ILineDataSet>()
+
+
+        val data = LineData(lista)
         data.setValueTextSize(9f)
         data.setDrawValues(false)
 
         // set data
         chart.data = data
 
+    }
+
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        if (buttonView != null) {
+            when(buttonView.id){
+                R.id.switchCO -> actualizaCO(isChecked)
+                R.id.switchNO2 -> actualizaNO2(isChecked)
+                R.id.switchO3 -> actualizaO3(isChecked)
+                R.id.switchPM10 -> actualizaPM10(isChecked)
+                R.id.switchPM25 -> actualizaPM25(isChecked)
+                R.id.switchSO2 -> actualizaSO2(isChecked)
+                R.id.switchNO -> actualizaNO(isChecked)
+                R.id.switchNH3 -> actualizaNH3(isChecked)
+                R.id.switchCO2 -> actualizaCO2(isChecked)
+            }
+        }
+
+    }
+
+    private fun actualizaCO2(checked: Boolean) {
+        if (checked)
+            chart.data.addDataSet(setCO2)
+        else
+            chart.data.removeDataSet(setCO2)
+
+        chart.notifyDataSetChanged()
+        chart.invalidate()
+    }
+
+    private fun actualizaNH3(checked: Boolean) {
+        if (checked)
+            chart.data.addDataSet(setNH3)
+        else
+            chart.data.removeDataSet(setNH3)
+
+        chart.notifyDataSetChanged()
+        chart.invalidate()
+    }
+
+    private fun actualizaNO(checked: Boolean) {
+        if (checked)
+            chart.data.addDataSet(setNO)
+        else
+            chart.data.removeDataSet(setNO)
+
+        chart.notifyDataSetChanged()
+        chart.invalidate()
+    }
+
+    private fun actualizaSO2(checked: Boolean) {
+        if (checked)
+            chart.data.addDataSet(setSO2)
+        else
+            chart.data.removeDataSet(setSO2)
+
+        chart.notifyDataSetChanged()
+        chart.invalidate()
+    }
+
+    private fun actualizaPM25(checked: Boolean) {
+        if (checked)
+            chart.data.addDataSet(setPM25)
+        else
+            chart.data.removeDataSet(setPM25)
+
+        chart.notifyDataSetChanged()
+        chart.invalidate()
+    }
+
+    private fun actualizaPM10(checked: Boolean) {
+        if (checked)
+            chart.data.addDataSet(setPM10)
+        else
+            chart.data.removeDataSet(setPM10)
+
+        chart.notifyDataSetChanged()
+        chart.invalidate()
+    }
+
+    private fun actualizaO3(checked: Boolean) {
+        if (checked)
+            chart.data.addDataSet(setO3)
+        else
+            chart.data.removeDataSet(setO3)
+
+        chart.notifyDataSetChanged()
+        chart.invalidate()
+    }
+
+    private fun actualizaNO2(checked: Boolean) {
+        if (checked)
+            chart.data.addDataSet(setNO2)
+        else
+            chart.data.removeDataSet(setNO2)
+
+        chart.notifyDataSetChanged()
+        chart.invalidate()
+    }
+
+    private fun actualizaCO(checked: Boolean) {
+        if (checked)
+            chart.data.addDataSet(setCO)
+        else
+            chart.data.removeDataSet(setCO)
+
+        chart.notifyDataSetChanged()
+        chart.invalidate()
     }
 }
 /* create a dataset and give it a type

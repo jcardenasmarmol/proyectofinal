@@ -4,6 +4,7 @@ import com.cardenas.jesus.proyectofinal.BodyClass
 import com.cardenas.jesus.proyectofinal.BodyClassArduino
 import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosArduinoDTO
 import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosArduinoUltimosDTO
+import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosDispositivoPortableDTO
 import com.cardenas.jesus.proyectofinal.model.dto.historicos.DatosHistoricosDTO
 import com.cardenas.jesus.proyectofinal.model.dto.historicos.DatosHistoricosUltimosDTO
 import retrofit2.Call
@@ -22,4 +23,7 @@ interface ResourceServices {
 
     @POST("arduino")
     fun requestArduino(@Body body: BodyClassArduino) : Call<List<DatosArduinoDTO>>
+
+    @GET("arduino/portables")
+    fun requestPortableDeviceData() : Call<List<DatosDispositivoPortableDTO>>
 }

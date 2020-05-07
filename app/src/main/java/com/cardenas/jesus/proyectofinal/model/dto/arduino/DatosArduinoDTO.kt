@@ -6,5 +6,5 @@ class DatosArduinoDTO(
     @SerializedName("estacion") val estacion: String,
     @SerializedName("fecha") val date: String,
     @SerializedName("contaminante") val contaminante: String,
-    @SerializedName("valor") val valor: Double
+    @SerializedName("valor") val valor: Double?
 )

@@ -5,4 +5,9 @@
         <item>Druzhba, Sofía, Bulgaria @8084</item>
         <item>Patra-2, Grecia @12410</item>
     </string-array>
+    <string-array name="estaciones_arduino">
+        <item>Spain</item>
+        <item>Greece</item>
+        <item>Bulgaria</item>
+    </string-array>
 </resources>

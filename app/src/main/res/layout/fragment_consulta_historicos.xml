@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.GalleryFragment">
+    tools:context=".view.fragments.ConsultaHistoricosFragment">
 
 
     <Spinner
@@ -28,6 +28,7 @@
         android:inputType="date"
         android:focusable="false"
         android:clickable="true"
+        android:text="2020-04-01"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/estacion" />
@@ -41,6 +42,7 @@
         android:inputType="date"
         android:focusable="false"
         android:clickable="true"
+        android:text="2020-04-07"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fechaInicial" />
@@ -49,11 +51,11 @@
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Consultar"
+        android:textColor="@color/colorIcons"
+        android:background="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
