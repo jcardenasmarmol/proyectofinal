@@ -2,6 +2,7 @@ package com.cardenas.jesus.proyectofinal.webservices
 
 import com.cardenas.jesus.proyectofinal.AppConstants
 import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
+import com.cardenas.jesus.proyectofinal.model.DatosCiudadesWAQI
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,5 +13,5 @@ interface WAQIServices {
     fun requestLastDataFromStation(@Path("estacion") estacion : String) : Call<DatosAirQualityModel>
 
     @GET("search/?token="+AppConstants.TOKENWAQI)
-    fun requestDataFromCitySearched(@Query("keyword") ciudad: String) : Call<List<DatosAirQualityModel>>
+    fun requestDataFromCitySearched(@Query("keyword") ciudad: String) : Call<DatosCiudadesWAQI>
 }

@@ -17,6 +17,7 @@ import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
 import com.cardenas.jesus.proyectofinal.tasks.GetWAQI
 import com.cardenas.jesus.proyectofinal.view.MainView
 import com.cardenas.jesus.proyectofinal.view.adapters.DatosAirQualiyAdapter
+import com.cardenas.jesus.proyectofinal.view.adapters.NewAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -75,7 +76,7 @@ class HomeFragment : Fragment(), MainView {
 
     override fun setDataSet(result: List<DatosAirQualityModel?>) {
         mainRecyclerView?.layoutManager = LinearLayoutManager(this.context)
-        mainRecyclerView?.adapter = DatosAirQualiyAdapter(result)
+        mainRecyclerView?.adapter = NewAdapter(result)
         loadingView?.visibility = View.GONE
         mainRecyclerView?.visibility = View.VISIBLE
     }
@@ -87,6 +88,7 @@ class HomeFragment : Fragment(), MainView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.action_add -> agregarEstacion()
+            R.id.action_edit -> Toast.makeText(context, "Editar", Toast.LENGTH_LONG).show()
         }
         return super.onOptionsItemSelected(item)
     }

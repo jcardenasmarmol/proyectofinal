@@ -3,69 +3,75 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="300dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
     android:layout_margin="10dp"
-    app:cardBackgroundColor="@color/colorRowItem">
+    app:cardBackgroundColor="@color/colorIcons">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="10dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/nombreEstacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    tools:text="Sevilla, España"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="20dp"
-                    android:gravity="center|left"/>
-                <TextView
-                    android:id="@+id/idEstacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    tools:text="\@8495"
-                    android:gravity="center|left"/>
-                <TextView
-                    android:id="@+id/fecha"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    tools:text="7 de abril 2020, 16:00:00"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="15dp"
-                    android:gravity="center|left"/>
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="vertical">
 
 
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/nombreEstacion"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="2"
+                tools:text="Sevilla, España"
+                android:textSize="20dp"
+                android:gravity="center|left"/>
+            <TextView
+                android:id="@+id/idEstacion"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                tools:text="\@8495"
+                android:gravity="center|left"/>
+            <TextView
+                android:id="@+id/fecha"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                tools:text="7 de abril 2020, 16:00:00"
+                android:textSize="15dp"
+                android:gravity="center|left"/>
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:visibility="visible">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:textColor="@color/colorPrimaryText"
                     android:text="Indice"
-                    android:textSize="20dp"
+                    android:textStyle="bold"
                     android:gravity="center"/>
                 <TextView
                     android:id="@+id/indice"
@@ -74,39 +80,30 @@
                     android:layout_weight="1"
                     android:textSize="20dp"
                     android:textColor="@color/colorPrimaryText"
+                    android:textStyle="bold"
                     android:gravity="center|top"/>
                 <ImageView
                     android:id="@+id/indiceColor"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:visibility="gone"/>
             </LinearLayout>
-        </LinearLayout>
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorAccent" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/contenedorNO2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/dataNO2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimaryText"
-                    tools:text="NO2\n 10"/>
+                    tools:text="NO2 10"/>
                 <ImageView
                     android:id="@+id/nivelNO2"
                     android:layout_width="wrap_content"
@@ -115,11 +112,11 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorPM10"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/dataPM10"
@@ -135,11 +132,11 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorCO"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/dataCO"
@@ -155,11 +152,11 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorO3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/dataO3"
@@ -175,11 +172,11 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorCO2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/dataCO2"
@@ -195,11 +192,11 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorNO"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/dataNO"
@@ -215,11 +212,11 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorNH3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/dataNH3"
@@ -235,11 +232,11 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorPM25"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/dataPM25"
@@ -255,11 +252,11 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorSO2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/dataSO2"
@@ -274,8 +271,10 @@
                     />
             </LinearLayout>
 
+
         </LinearLayout>
 
     </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>

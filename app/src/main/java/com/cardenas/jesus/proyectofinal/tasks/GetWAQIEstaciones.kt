@@ -5,19 +5,18 @@ import android.os.Looper
 import com.birbit.android.jobqueue.Job
 import com.birbit.android.jobqueue.Params
 import com.birbit.android.jobqueue.RetryConstraint
-import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
-import com.cardenas.jesus.proyectofinal.view.MainView
+import com.cardenas.jesus.proyectofinal.view.MySearchView
 import com.cardenas.jesus.proyectofinal.webservices.ApiUtils
 import com.cardenas.jesus.proyectofinal.webservices.WAQIServices
 import retrofit2.create
 
 class GetWAQIEstaciones(
     params: Params?,
-    val view: MainView,
+    val view: MySearchView,
     private val ciudad : String
 ) : Job(params) {
     override fun onRun() {
-        val resourceService = ApiUtils.generateRetrofitWAQIInstance()
+        val resourceService = ApiUtils.generateRetrofitWAQICiudadInstance()
             .create<WAQIServices>()
 
         val call = resourceService.requestDataFromCitySearched(ciudad)
