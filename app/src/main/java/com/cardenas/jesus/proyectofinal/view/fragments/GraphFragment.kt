@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.birbit.android.jobqueue.Job
 import com.birbit.android.jobqueue.JobManager
@@ -334,6 +335,18 @@ class GraphFragment : Fragment(), MainView, CompoundButton.OnCheckedChangeListen
 
         chart.notifyDataSetChanged()
         chart.invalidate()
+    }
+
+    override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
+        super.onConfigurationChanged(newConfig)
+        // Checks the orientation of the screen
+        if (newConfig.orientation === android.content.res.Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(context, "landscape", Toast.LENGTH_SHORT).show()
+            Thread.sleep(500)
+        } else if (newConfig.orientation === android.content.res.Configuration.ORIENTATION_PORTRAIT) {
+            Toast.makeText(context, "portrait", Toast.LENGTH_SHORT).show()
+            Thread.sleep(500)
+        }
     }
 }
 /* create a dataset and give it a type
