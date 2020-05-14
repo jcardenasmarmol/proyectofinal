@@ -1,4 +1,4 @@
-package com.cardenas.jesus.proyectofinal.view.fragments
+package com.cardenas.jesus.proyectofinal.ui.maps
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,13 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.birbit.android.jobqueue.JobManager
-import com.birbit.android.jobqueue.Params
-import com.birbit.android.jobqueue.config.Configuration
+import androidx.lifecycle.Observer
 import com.cardenas.jesus.proyectofinal.R
 import com.cardenas.jesus.proyectofinal.model.DatosDispositivoPortable
-import com.cardenas.jesus.proyectofinal.tasks.GetDatosDispPortables
-import com.cardenas.jesus.proyectofinal.view.MyMapView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -22,63 +18,27 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class DispMovilMapsFragment : Fragment(), MyMapView {
+class DispMovilMapsFragment : Fragment(), OnMapReadyCallback {
 
-    private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         * val sydney = LatLng(37.3828300, -5.9731700)
-         * googleMap.addMarker(MarkerOptions().position(sydney).title("Sevilla"))
-         * googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 6f))
-         */
-        googleMap.uiSettings.isZoomControlsEnabled = true
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(36.0,-5.0), 5F))
-        loadData(googleMap)
-        googleMap.setInfoWindowAdapter(PopUp(layoutInflater))
-        googleMap.setOnMarkerClickListener {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 20F))
-            it.showInfoWindow()
-            true
-        }
-    }
+    private lateinit var dispMovilMapsViewModel: DispMovilMapsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        dispMovilMapsViewModel = DispMovilMapsViewModel.DispMovilMapsViewModelFactory().create(DispMovilMapsViewModel::class.java)
         return inflater.inflate(R.layout.fragment_disp_movil_maps, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+        mapFragment?.getMapAsync(this)
     }
 
-    private fun loadData(googleMap: GoogleMap) {
-        val builder = this.context?.let {
-            Configuration.Builder(it)
-                .minConsumerCount(1)
-                .maxConsumerCount(3)
-                .loadFactor(2)
-                .consumerKeepAlive(500)
-        }
 
-        val jobManager = JobManager(builder?.build())
-
-        val serviceJob = GetDatosDispPortables(Params(50).requireNetwork(), this, googleMap)
-        jobManager.addJobInBackground(serviceJob)
-        jobManager.start()
-    }
-
-    override fun setDataSet(
+    fun setDataSet(
         result: List<DatosDispositivoPortable?>,
         googleMap: GoogleMap
     ) {
@@ -96,6 +56,26 @@ class DispMovilMapsFragment : Fragment(), MyMapView {
             }
         }
 
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        googleMap.uiSettings.isZoomControlsEnabled = true
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(36.0,-5.0), 5F))
+
+        dispMovilMapsViewModel.getDatos().observe(viewLifecycleOwner, Observer {
+            setDataSet(it, googleMap)
+        })
+
+        googleMap.setInfoWindowAdapter(
+            PopUp(
+                layoutInflater
+            )
+        )
+        googleMap.setOnMarkerClickListener {
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 20F))
+            it.showInfoWindow()
+            true
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-package com.cardenas.jesus.proyectofinal.view.adapters
+package com.cardenas.jesus.proyectofinal.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -46,7 +46,9 @@ class DatosAirQualiyAdapter (val data : List<DatosAirQualityModel?>) : RecyclerV
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(
+            view
+        )
     }
 
     override fun getItemCount(): Int {

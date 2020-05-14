@@ -3,10 +3,7 @@ package com.cardenas.jesus.proyectofinal
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.widget.DatePicker
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.nav_header_main.*
 import java.util.*
 
 class DatePickerFragment : DialogFragment() {

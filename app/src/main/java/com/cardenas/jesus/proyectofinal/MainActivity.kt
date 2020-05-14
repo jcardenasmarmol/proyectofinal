@@ -1,16 +1,15 @@
-package com.cardenas.jesus.proyectofinal.view.activities
+package com.cardenas.jesus.proyectofinal
 
 import android.os.Bundle
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import com.cardenas.jesus.proyectofinal.R
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 

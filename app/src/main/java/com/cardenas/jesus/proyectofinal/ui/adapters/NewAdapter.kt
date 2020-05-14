@@ -1,9 +1,8 @@
-package com.cardenas.jesus.proyectofinal.view.adapters
+package com.cardenas.jesus.proyectofinal.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
 import com.cardenas.jesus.proyectofinal.R
 import com.cardenas.jesus.proyectofinal.Utils
@@ -13,7 +12,7 @@ import com.github.mikephil.charting.components.XAxis
 import kotlinx.android.synthetic.main.row_last.view.*
 
 class NewAdapter (
-    val data : List<DatosAirQualityModel?>
+    val data : MutableList<DatosAirQualityModel?>
 ) : RecyclerView.Adapter<NewAdapter.ViewHolder>(){
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -53,7 +52,9 @@ class NewAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_last, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(
+            view
+        )
     }
 
     override fun getItemCount(): Int {
@@ -140,6 +141,7 @@ class NewAdapter (
         }
         holder.indice.text = valorIndice.toString()
         chart(holder.chart, contaminantes, datos)
+
     }
 
     private fun chart(

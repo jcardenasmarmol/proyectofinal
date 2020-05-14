@@ -1,4 +1,4 @@
-package com.cardenas.jesus.proyectofinal.view.fragments
+package com.cardenas.jesus.proyectofinal.ui.grafica
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,27 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.Switch
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.birbit.android.jobqueue.Job
-import com.birbit.android.jobqueue.JobManager
-import com.birbit.android.jobqueue.Params
-import com.birbit.android.jobqueue.config.Configuration
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.cardenas.jesus.proyectofinal.R
 import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
-import com.cardenas.jesus.proyectofinal.tasks.GetDatosArduinoPorFecha
-import com.cardenas.jesus.proyectofinal.tasks.GetHistoricosPorFecha
-import com.cardenas.jesus.proyectofinal.view.MainView
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.fragment_graph.*
-import java.util.*
 
-class GraphFragment : Fragment(), MainView, CompoundButton.OnCheckedChangeListener {
+class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
 
     lateinit var datos : List<DatosAirQualityModel?>
     lateinit var setCO : LineDataSet
@@ -40,11 +33,42 @@ class GraphFragment : Fragment(), MainView, CompoundButton.OnCheckedChangeListen
     lateinit var setNH3 : LineDataSet
     lateinit var setCO2 : LineDataSet
 
+    private lateinit var graphViewModel: GraphViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(null)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        graphViewModel = GraphViewModel.GraphViewModelFactory().create(GraphViewModel::class.java)
+
         val view = inflater.inflate(R.layout.fragment_graph, container, false)
+
+        val consultaArduino = arguments?.getBoolean("consultaArduino") ?: false
+        if (consultaArduino){
+            graphViewModel.getDatosArduino(arguments?.getString("estacion") ?: "Spain",
+                arguments?.getString("fechaInicial") ?: "2020-01-01",
+                arguments?.getString("fechaFinal") ?: "2020-01-15")
+                .observe(viewLifecycleOwner, Observer {
+                    setDataSet(it)
+                    chart.notifyDataSetChanged()
+                    setUI(view)
+                })
+        } else {
+            graphViewModel.getDatosOficiales(arguments?.getInt("estacion") ?: 8495,
+                arguments?.getString("fechaInicial") ?: "2020-01-01",
+                arguments?.getString("fechaFinal") ?: "2020-01-15")
+                .observe(viewLifecycleOwner, Observer {
+                    setDataSet(it)
+                    chart.notifyDataSetChanged()
+                    setUI(view)
+                })
+        }
+        return view
+    }
+    private fun setUI(view : View) {
         val switchCO = view.findViewById<Switch>(R.id.switchCO)
         switchCO.setOnCheckedChangeListener(this)
         val switchNO2 = view.findViewById<Switch>(R.id.switchNO2)
@@ -63,50 +87,9 @@ class GraphFragment : Fragment(), MainView, CompoundButton.OnCheckedChangeListen
         switchNH3.setOnCheckedChangeListener(this)
         val switchCO2 = view.findViewById<Switch>(R.id.switchCO2)
         switchCO2.setOnCheckedChangeListener(this)
-        val fechaInicial = view.findViewById<TextView>(R.id.fechaInicial)
-        fechaInicial.text = arguments?.getString("fechaInicial") ?: ""
-        val fechaFinal = view.findViewById<TextView>(R.id.fechaFinal)
-        fechaFinal.text = arguments?.getString("fechaFinal") ?: ""
-        loadData()
-        return view
     }
 
-
-    private fun loadData() {
-        val builder = this.context?.let {
-            Configuration.Builder(it)
-                .minConsumerCount(1)
-                .maxConsumerCount(3)
-                .loadFactor(2)
-                .consumerKeepAlive(200)
-        }
-
-
-        val jobManager = JobManager(builder?.build())
-        val arduino = arguments?.getBoolean("consultaArduino") ?: false
-
-        lateinit var serviceJob : Job
-        if (arduino){
-            serviceJob = GetDatosArduinoPorFecha(
-                Params(50).requireNetwork(),
-                this, arguments?.getString("estacion") ?: "Spain",
-                arguments?.getString("fechaInicial") ?: "2020-01-01",
-                arguments?.getString("fechaFinal") ?: "2020-01-15"
-            )
-        }else{
-            serviceJob = GetHistoricosPorFecha(
-                Params(50).requireNetwork(),
-                this, arguments?.getInt("estacion") ?: 8495,
-                arguments?.getString("fechaInicial") ?: "2020-01-01",
-                arguments?.getString("fechaFinal") ?: "2020-01-15"
-            )
-        }
-
-        jobManager.addJobInBackground(serviceJob)
-        jobManager.start()
-    }
-
-    override fun setDataSet(result: List<DatosAirQualityModel?>) {
+    fun setDataSet(result: List<DatosAirQualityModel?>) {
         datos = result
         chart.setViewPortOffsets(0f, 0f, 0f, 0f)
 
