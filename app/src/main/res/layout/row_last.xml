@@ -7,7 +7,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
     android:layout_margin="10dp"
-    app:cardBackgroundColor="@color/colorIcons">
+    app:cardBackgroundColor="@color/colorIcons"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -99,16 +100,20 @@
                 android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/dataNO2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryText"
-                    tools:text="NO2 10"/>
+                    android:text="NO·2"/>
                 <ImageView
                     android:id="@+id/nivelNO2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+                <TextView
+                    android:id="@+id/dataNO2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryText"
+                    tools:text="10"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorPM10"
@@ -119,16 +124,21 @@
                 android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/dataPM10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryText"
-                    tools:text="PM10\n 10"/>
+                    android:text="PM·10"/>
                 <ImageView
                     android:id="@+id/nivelPM10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+                <TextView
+                    android:id="@+id/dataPM10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryText"
+                    tools:text="10"/>
+
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorCO"
@@ -139,16 +149,20 @@
                 android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/dataCO"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryText"
-                    tools:text="CO\n 10"/>
+                    android:text="CO"/>
                 <ImageView
                     android:id="@+id/nivelCO"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+                <TextView
+                    android:id="@+id/dataCO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryText"
+                    tools:text="10"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorO3"
@@ -159,16 +173,21 @@
                 android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/dataO3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryText"
-                    tools:text="O3\n 10"/>
+                    android:text="O·3"/>
                 <ImageView
                     android:id="@+id/nivelO3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+                <TextView
+                    android:id="@+id/dataO3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryText"
+                    tools:text="10"/>
+
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorCO2"
@@ -179,16 +198,21 @@
                 android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/dataCO2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryText"
-                    tools:text="CO2\n 10"/>
+                    android:text="CO·2"/>
+
                 <ImageView
                     android:id="@+id/nivelCO2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+                <TextView
+                    android:id="@+id/dataCO2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryText"
+                    tools:text="10"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorNO"
@@ -199,16 +223,21 @@
                 android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/dataNO"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryText"
-                    tools:text="NO\n 10"/>
+                    android:text="NO"/>
+
                 <ImageView
                     android:id="@+id/nivelNO"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+                <TextView
+                    android:id="@+id/dataNO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryText"
+                    tools:text="10"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorNH3"
@@ -219,16 +248,21 @@
                 android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/dataNH3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryText"
-                    tools:text="NH3\n 10"/>
+                    android:text="NH·3"/>
+
                 <ImageView
                     android:id="@+id/nivelNH3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+                <TextView
+                    android:id="@+id/dataNH3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryText"
+                    tools:text="10"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorPM25"
@@ -239,16 +273,21 @@
                 android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/dataPM25"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryText"
-                    tools:text="PM25\n 10"/>
+                    android:text="PM·2.5"/>
+
                 <ImageView
                     android:id="@+id/nivelPM25"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+                <TextView
+                    android:id="@+id/dataPM25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryText"
+                    tools:text="10"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/contenedorSO2"
@@ -259,16 +298,21 @@
                 android:orientation="horizontal"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/dataSO2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryText"
-                    tools:text="PM25\n 10"/>
+                    android:text="SO·2"/>
                 <ImageView
                     android:id="@+id/nivelSO2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+                <TextView
+                    android:id="@+id/dataSO2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryText"
+                    tools:text="10"/>
+
             </LinearLayout>
 
 

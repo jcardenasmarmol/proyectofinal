@@ -1,24 +1,88 @@
 <resources>
-    <string name="app_name">ProyectoFinal</string>
+    <string name="app_name">Calidad Aire</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Jesús Cardeñas</string>
-    <string name="nav_header_subtitle">jcmarmol18@iespuntadelverde.com</string>
+    <string name="nav_header_title">REE y Calidad del Aire</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Ultimos</string>
-    <string name="menu_historicos">Consulta datos historicos</string>
-    <string name="menu_arduino_ult">Ultimos arduino</string>
-    <string name="menu_arduino">Consulta datos arduino</string>
+    <string name="menu_home">Ultimos oficiales</string>
+    <string name="menu_historicos">Datos oficiales</string>
+    <string name="menu_arduino_ult">Ultimos nuestros</string>
+    <string name="menu_arduino">Nuestros Datos</string>
     <string name="menu_dipositivo_movil">Datos Disp. Movil</string>
 
-    <string name="menu_info">Info. contaminantes</string>
+    <string name="menu_info">Contaminantes</string>
 
     <string name="home_second">Home Second</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_estacion">Agregar estacion</string>
+    <string name="info_contaminantes">
+        "<b></b>"
+        "<b>Partículas (PM)</b>"\n
+        "<b>Definición y fuentes principales</b>"\n
+        "Las PM son un indicador representativo común de la contaminación del aire. Afectan a más personas que cualquier otro contaminante. Los principales componentes de las PM son los sulfatos, los nitratos, el amoníaco, el cloruro de sodio, el hollín, los polvos minerales y el agua. Consisten en una compleja mezcla de partículas sólidas y líquidas de sustancias orgánicas e inorgánicas suspendidas en el aire. Si bien las partículas con un diámetro de 10 micrones o menos (≤ PM10) pueden penetrar y alojarse profundamente dentro de los pulmones, existen otras partículas aún más dañinas para la salud, que son aquellas con un diámetro de 2,5 micrones o menos (≤ PM2.5). Las PM2.5 pueden atravesar la barrera pulmonar y entrar en el sistema sanguíneo La exposición crónica a partículas contribuye al riesgo de desarrollar enfermedades cardiovasculares y respiratorias, así como cáncer de pulmón."\n
+        "Generalmente, las mediciones de la calidad del aire se notifican como concentraciones medias diarias o anuales de partículas PM10 por metro cúbico (m3) de aire. Las mediciones sistemáticas de la calidad del aire describen esas concentraciones de PM expresadas en microgramos (μ)/m3. Cuando se dispone de instrumentos de medición suficientemente sensibles, se notifican también las concentraciones de partículas finas (PM2,5 o más pequeñas)."\n
+        "<b>Efectos sobre la salud</b>"\n
+        "Existe una estrecha relación cuantitativa entre la exposición a altas concentraciones de pequeñas partículas (PM10 y PM2,5) y el aumento de la mortalidad o morbilidad diaria y a largo plazo. A la inversa, cuando las concentraciones de partículas pequeñas y finas son reducidas, la mortalidad conexa también desciende, en el supuesto de que otros factores se mantengan sin cambios. Esto permite a las instancias normativas efectuar proyecciones relativas al mejoramiento de la salud de la población que se podría esperar si se redujera la contaminación del aire con partículas."\n
+        "La contaminación con partículas conlleva efectos sanitarios incluso en muy bajas concentraciones; de hecho, no se ha podido identificar ningún umbral por debajo del cual no se hayan observado daños para la salud. Por consiguiente, los límites de la directriz de 2005 de la OMS se orientan a lograr las concentraciones de partículas más bajas posibles."\n
+        "<b>Valores fijados en las Directrices</b>"\n
+        "<b>Partículas finas (PM2.5)</b>"
+        "10 μg/m3 de media anual"
+        "25 μg/m3 de media en 24h"\n
+        "<b>Partículas gruesas (PM10)</b>"
+        "20 μg/m3 de media anual"
+        "50 μg/m3 de media en 24h"\n
+        "Además de los valores, las Directrices sobre la Calidad del Aire establecen metas intermedias para concentraciones de PM10 y PM2,5 destinadas a promover una reducción gradual, de concentraciones altas a otras más bajas."\n
+        "Si se alcanzaran esas metas intermedias se podrían esperar reducciones importantes de los riesgos de enfermedades agudas y crónicas derivadas de la contaminación del aire. No obstante, los valores establecidos en las Directrices deberían ser el objetivo final."\n
+        "Los efectos sanitarios de las partículas provienen de la exposición que actualmente experimentan muchas personas, tanto en las zonas urbanas como rurales, bien sea en los países desarrollados o en los países en desarrollo, aun cuando la exposición en muchas ciudades en rápido desarrollo suele ser actualmente muchísimo más alta que en ciudades desarrolladas de tamaño comparable."\n
+        "En las Directrices de la OMS sobre la Calidad del Aire se estima que una reducción media anual de las concentraciones de partículas (PM10) de 35 microgramos/m3, común en muchas ciudades en desarrollo, a 10 microgramos/m3, permitiría reducir el número de defunciones relacionadas con la contaminación en aproximadamente un 15%. Sin embargo, incluso en la Unión Europea, donde las concentraciones de PM de muchas ciudades cumplen los niveles fijados en las Directrices, se estima que la exposición a partículas de origen antropogénico reduce la esperanza media de vida en 8,6 meses."\n
+        "En los países de bajos y medianos ingresos, la exposición a contaminantes en el interior y alrededor de las viviendas como consecuencia del uso de combustibles en estufas abiertas o cocinas tradicionales incrementa el riesgo de infecciones agudas de las vías respiratorias inferiores, así como el riesgo de cardiopatías, neumopatía obstructiva crónica y cáncer de pulmón en los adultos."\n
+        "Existen graves riesgos sanitarios no solo por exposición a las partículas, sino también al ozono (O3), el dióxido de nitrógeno (NO2) y el dióxido de azufre (SO2). Como en el caso de las partículas, las concentraciones más elevadas suelen encontrarse en las zonas urbanas de los países de ingresos bajos y medianos. El ozono es un importante factor de mortalidad y morbilidad por asma, mientras que el dióxido de nitrógeno y el dióxido de azufre pueden tener influencia en el asma, los síntomas bronquiales, las alveolitis y la insuficiencia respiratoria."\n
+        "<b>Ozono (O3)</b>"\n
+        "<b>Valores fijados en las Directrices</b>"\n
+        "100 μg/m3 de media en 8h"\n
+        "El límite recomendado en las Directrices de la OMS sobre la Calidad del Aire, de 2005, se redujo del nivel de 120 µg/m3 establecido en ediciones precedentes de esas Directrices1 y 2, a raíz de pruebas concluyentes sobre la relación entre la mortalidad diaria y concentraciones de ozono inferiores."\n
+        "<b>Definición y fuentes principales</b>"\n
+        "El ozono a nivel del suelo ―que no debe confundirse con la capa de ozono en la atmósfera superior― es uno de los principales componentes de la niebla tóxica. Éste se forma por la reacción con la luz solar (fotoquímica) de contaminantes como los óxidos de nitrógeno (NOx) procedentes de las emisiones de vehículos o la industria y los compuestos orgánicos volátiles (COV) emitidos por los vehículos, los disolventes y la industria. Los niveles de ozono más elevados se registran durante los períodos de tiempo soleado."\n
+        "<b>Efectos sobre la salud</b>"\n
+        "El exceso de ozono en el aire puede producir efectos adversos de consideración en la salud humana. Puede causar problemas respiratorios, provocar asma, reducir la función pulmonar y originar enfermedades pulmonares."\n
+        "<b>Dióxido de nitrógeno (NO2)</b>"\n
+        "<b>Valores fijados en las Directrices</b>"\n
+        "40 μg/m3 de media anual"
+        "200 μg/m3 de media en 1h"\n
+        "El valor actual de 40 µg/m3 (de media anual) fijado en las Directrices de la OMS para proteger a la población de los efectos nocivos para la salud del NO2 gaseoso no ha cambiado respecto al recomendado en las directrices anteriores."\n
+        "<b>Definición y fuentes principales</b>"\n
+        "Como contaminante atmosférico, el NO2 puede correlacionarse con varias actividades:"\n
+        "•	En concentraciones de corta duración superiores a 200 mg/m3, es un gas tóxico que causa una importante inflamación de las vías respiratorias"\n
+        "•	Es la fuente principal de los aerosoles de nitrato, que constituyen una parte importante de las PM2.5 y, en presencia de luz ultravioleta, del ozono."\n
+        "Las principales fuentes de emisiones antropogénicas de NO2 son los procesos de combustión (calefacción, generación de electricidad y motores de vehículos y barcos)."\n
+        "<b>Efectos sobre la salud</b>"\n
+        "Estudios epidemiológicos han revelado que los síntomas de bronquitis en niños asmáticos aumentan en relación con la exposición prolongada al NO2. La disminución del desarrollo de la función pulmonar también se asocia con las concentraciones de NO2 registradas (u observadas) actualmente en ciudades europeas y norteamericanas."\n
+        "<b>Dióxido de azufre (SO2)</b>"\n
+        "<b>Valores fijados en las Directrices</b>"\n
+        "20 μg/m3 media en 24h"
+        "500 μg/m3 de media en 10 min"\n
+        "La concentración de SO2 en períodos promedio de 10 minutos no debería superar los 500 µg/m3. Los estudios indican que un porcentaje de las personas con asma experimenta cambios en la función pulmonar y síntomas respiratorios tras períodos de exposición al SO2 de tan solo 10 minutos."\n
+        "La revisión de la directriz referente a la concentración de SO2 en 24 horas, que ha descendido de 125 a 20 μg/m3, se basa en las siguientes consideraciones:"\n
+        "•	Los efectos nocivos sobre la salud están asociados a niveles de SO2 muy inferiores a los aceptados hasta ahora."\n
+        "•	Se requiere mayor grado de protección."\n
+        "•	Pese a las dudas que plantea todavía la causalidad de los efectos de bajas concentraciones de SO2, es probable que la reducción de las concentraciones disminuya la exposición a otros contaminantes."\n
+        "<b>Definición y fuentes principales</b>"\n
+        "El SO2 es un gas incoloro con un olor penetrante que se genera con la combustión de fósiles (carbón y petróleo) y la fundición de menas que contienen azufre. La principal fuente antropogénica del SO2 es la combustión de fósiles que contienen azufre usados para la calefacción doméstica, la generación de electricidad y los vehículos a motor."\n
+        "<b>Efectos sobre la salud</b>"\n
+        "SO2 puede afectar al sistema respiratorio y las funciones pulmonares, y causa irritación ocular. La inflamación del sistema respiratorio provoca tos, secreción mucosa y agravamiento del asma y la bronquitis crónica; asimismo, aumenta la propensión de las personas a contraer infecciones del sistema respiratorio. Los ingresos hospitalarios por cardiopatías y la mortalidad aumentan en los días en que los niveles de SO2 son más elevados. En combinación con el agua, el SO2 se convierte en ácido sulfúrico, que es el principal componente de la lluvia ácida que causa la deforestación."\n\n
+
+        <i>fuente: https://www.who.int/es/news-room/fact-sheets/detail/ambient-%28outdoor%29-air-quality-and-health</i>
+    </string>
+    <string name="large_text">
+        "Fuentes de los datos:\n\n"
+
+        <i>https://waqi.info/es/#/c/6.669/8.756/2z</i>\n
+        <i>https://discomap.eea.europa.eu/map/fme/AirQualityExport.htm</i>
+
+    </string>
 
 
 </resources>

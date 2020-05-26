@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,6 +30,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
+
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
@@ -39,16 +41,22 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:padding="5dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <Switch
+                android:id="@+id/switchCO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="CO" />
 
             <Switch
                 android:id="@+id/switchPM10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:gravity="center"
                 android:text="PM10" />
 
             <Switch
@@ -56,23 +64,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:gravity="center"
                 android:text="NO2" />
-
-            <Switch
-                android:id="@+id/switchO3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:gravity="center"
-                android:text="O3" />
-
             <Switch
                 android:id="@+id/switchNO"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:gravity="center"
                 android:text="NO" />
 
             <Switch
@@ -80,41 +77,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:gravity="center"
                 android:text="CO2" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Switch
-                android:id="@+id/switchCO"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:gravity="center"
-                android:text="CO" />
-
             <Switch
                 android:id="@+id/switchSO2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:gravity="center"
                 android:text="SO2" />
+
+            <Switch
+                android:id="@+id/switchO3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="O3" />
 
             <Switch
                 android:id="@+id/switchPM25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:gravity="center"
                 android:text="PM25" />
 
             <Switch
@@ -122,23 +104,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:gravity="center"
                 android:text="NH3" />
 
         </LinearLayout>
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-
-
-        </LinearLayout>-->
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

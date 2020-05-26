@@ -5,7 +5,6 @@ import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosArduinoDTO
 import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosArduinoUltimosDTO
 import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosDispositivoPortableDTO
 import com.cardenas.jesus.proyectofinal.model.dto.historicos.DatosHistoricosDTO
-import com.cardenas.jesus.proyectofinal.model.dto.historicos.DatosHistoricosUltimosDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -13,12 +12,6 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ResourceServices {
-
-    /**
-     * No se usa
-     */
-    @GET("historicos/ultimos")
-    fun requestLastHistories() : Call<DatosHistoricosUltimosDTO>
 
     @GET("arduino/ultimos")
     fun requestLastArduino() : Call<DatosArduinoUltimosDTO>

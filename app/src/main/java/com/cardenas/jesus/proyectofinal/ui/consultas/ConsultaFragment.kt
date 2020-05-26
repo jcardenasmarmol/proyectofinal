@@ -1,7 +1,6 @@
 package com.cardenas.jesus.proyectofinal.ui.consultas
 
 import android.app.DatePickerDialog
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.cardenas.jesus.proyectofinal.AppConstants
 import com.cardenas.jesus.proyectofinal.DatePickerFragment
 import com.cardenas.jesus.proyectofinal.R
+import com.cardenas.jesus.proyectofinal.utilidades.AppConstants
 
 class ConsultaFragment : Fragment() {
 
@@ -37,7 +36,6 @@ class ConsultaFragment : Fragment() {
         consultaViewModel.fechaFinal.observe(viewLifecycleOwner, Observer {
             fechaFinal.text = it
         })
-
 
         val spinner: Spinner = view.findViewById(R.id.estacion)
         consultaViewModel.getEstaciones(arguments?.getBoolean("consultaArduino")?:false)
@@ -90,14 +88,6 @@ class ConsultaFragment : Fragment() {
         return view
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        if (newConfig.orientation === Configuration.ORIENTATION_LANDSCAPE) {
-            onCreate(null)
-        } else if (newConfig.orientation === Configuration.ORIENTATION_PORTRAIT) {
-            onCreate(null)
-        }
-    }
     fun Int.twoDigits() =
         if (this <= 9) "0$this" else this.toString()
 }

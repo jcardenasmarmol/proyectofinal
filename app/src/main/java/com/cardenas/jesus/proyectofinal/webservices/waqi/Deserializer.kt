@@ -1,4 +1,4 @@
-package com.cardenas.jesus.proyectofinal.webservices
+package com.cardenas.jesus.proyectofinal.webservices.waqi
 
 import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
 import com.google.gson.JsonDeserializationContext

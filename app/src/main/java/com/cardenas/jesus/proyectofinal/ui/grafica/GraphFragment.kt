@@ -7,22 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.Switch
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.cardenas.jesus.proyectofinal.R
 import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.Legend.LegendForm
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.fragment_graph.*
 
 class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
 
-    lateinit var datos : List<DatosAirQualityModel?>
     lateinit var setCO : LineDataSet
     lateinit var setNO2 : LineDataSet
     lateinit var setO3 : LineDataSet
@@ -53,8 +54,6 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
                 arguments?.getString("fechaFinal") ?: "2020-01-15")
                 .observe(viewLifecycleOwner, Observer {
                     setDataSet(it)
-                    chart.notifyDataSetChanged()
-                    setUI(view)
                 })
         } else {
             graphViewModel.getDatosOficiales(arguments?.getInt("estacion") ?: 8495,
@@ -62,36 +61,71 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
                 arguments?.getString("fechaFinal") ?: "2020-01-15")
                 .observe(viewLifecycleOwner, Observer {
                     setDataSet(it)
-                    chart.notifyDataSetChanged()
-                    setUI(view)
                 })
         }
         return view
     }
+
+    fun setDataSet(result: List<DatosAirQualityModel?>) {
+        crearGrafico(result)
+        view?.let {
+            setUI(it)
+            actualizar()
+        }
+    }
+
+    private fun actualizar() {
+        actualizaCO(switchCO.isChecked)
+        actualizaNO2(switchNO2.isChecked)
+        actualizaO3(switchO3.isChecked)
+        actualizaSO2(switchSO2.isChecked)
+        actualizaPM25(switchPM25.isChecked)
+        actualizaPM10(switchPM10.isChecked)
+        actualizaNO(switchNO.isChecked)
+        actualizaNH3(switchNH3.isChecked)
+        actualizaCO2(switchCO2.isChecked)
+    }
+
     private fun setUI(view : View) {
         val switchCO = view.findViewById<Switch>(R.id.switchCO)
         switchCO.setOnCheckedChangeListener(this)
+        if(setCO.values.isNotEmpty()) switchCO.visibility = View.VISIBLE
+
         val switchNO2 = view.findViewById<Switch>(R.id.switchNO2)
         switchNO2.setOnCheckedChangeListener(this)
+        if(setNO2.values.isNotEmpty()) switchNO2.visibility = View.VISIBLE
+
         val switchO3 = view.findViewById<Switch>(R.id.switchO3)
         switchO3.setOnCheckedChangeListener(this)
+        if(setO3.values.isNotEmpty()) switchO3.visibility = View.VISIBLE
+
         val switchSO2 = view.findViewById<Switch>(R.id.switchSO2)
         switchSO2.setOnCheckedChangeListener(this)
+        if(setSO2.values.isNotEmpty()) switchSO2.visibility = View.VISIBLE
+
         val switchPM25 = view.findViewById<Switch>(R.id.switchPM25)
         switchPM25.setOnCheckedChangeListener(this)
+        if(setPM25.values.isNotEmpty()) switchPM25.visibility = View.VISIBLE
+
         val switchPM10 = view.findViewById<Switch>(R.id.switchPM10)
         switchPM10.setOnCheckedChangeListener(this)
-        val switcNO = view.findViewById<Switch>(R.id.switchNO)
-        switcNO.setOnCheckedChangeListener(this)
+        if(setPM10.values.isNotEmpty()) switchPM10.visibility = View.VISIBLE
+
+        val switchNO = view.findViewById<Switch>(R.id.switchNO)
+        switchNO.setOnCheckedChangeListener(this)
+        if(setNO.values.isNotEmpty()) switchNO.visibility = View.VISIBLE
+
         val switchNH3 = view.findViewById<Switch>(R.id.switchNH3)
         switchNH3.setOnCheckedChangeListener(this)
+        if(setNH3.values.isNotEmpty()) switchNH3.visibility = View.VISIBLE
+
         val switchCO2 = view.findViewById<Switch>(R.id.switchCO2)
         switchCO2.setOnCheckedChangeListener(this)
+        if(setCO2.values.isNotEmpty()) switchCO2.visibility = View.VISIBLE
+
     }
 
-    fun setDataSet(result: List<DatosAirQualityModel?>) {
-        datos = result
-        chart.setViewPortOffsets(0f, 0f, 0f, 0f)
+    private fun crearGrafico(result: List<DatosAirQualityModel?>) {
 
         // no description text
         chart.description.isEnabled = false
@@ -107,24 +141,49 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
         chart.setPinchZoom(true)
 
         chart.setDrawGridBackground(false)
-        chart.maxHighlightDistance = 300f
+        //chart.maxHighlightDistance = 300f
+
+        var listaFechas = mutableListOf<String>()
+        result.map {
+            it?.fecha?.let { it1 -> listaFechas.add(it1.substring(IntRange(0,9))) }
+        }
+        val xFormater = IndexAxisValueFormatter(listaFechas.toTypedArray())
 
         val x = chart.xAxis
-        x.isEnabled = false
+        x.valueFormatter = xFormater
+        x.position = XAxis.XAxisPosition.BOTTOM
+        x.granularity = 1f
+        x.mAxisMinimum = -1f
+        x.setDrawLabels(true)
+        x.setDrawAxisLine(true)
+        x.setDrawGridLines(false)
+        x.labelRotationAngle = -30f
+        x.isEnabled = true
+
 
         val y = chart.axisLeft
-        y.setLabelCount(6, false)
+        y.setLabelCount(9, false)
         y.textColor = Color.BLACK
-        y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
+        y.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
         y.setDrawGridLines(false)
-        y.axisLineColor = Color.WHITE
+        y.setDrawAxisLine(true)
+        y.setDrawZeroLine(true)
+        y.mAxisMinimum = -1f
+        chart.axisLeft.isEnabled = true
+
 
         chart.axisRight.isEnabled = false
 
         // add data
         setData(result)
 
-        chart.legend.isEnabled = true
+        val l = chart.legend
+        l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+        l.orientation = Legend.LegendOrientation.HORIZONTAL
+        l.setDrawInside(false)
+        l.form = LegendForm.CIRCLE
+        l.isEnabled = true
 
         chart.animateXY(2000, 2000)
 
@@ -133,7 +192,6 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
         contenedor.visibility = View.VISIBLE
         // don't forget to refresh the drawing
         chart.invalidate()
-
     }
 
 
@@ -149,27 +207,27 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
         val valuesNH3 = ArrayList<Entry>()
         val valuesCO2 = ArrayList<Entry>()
 
-        var count = 1f
+        var date = 0f
         result.map { data ->
             data?.contaminantes?.get("co")?.let {
-                valuesCO.add(Entry(count, it?.toFloat())) }
+                valuesCO.add(Entry(date, it?.toFloat())) }
             data?.contaminantes?.get("no2")?.let {
-                valuesNO2.add(Entry(count, it?.toFloat()))}
+                valuesNO2.add(Entry(date, it?.toFloat()))}
             data?.contaminantes?.get("o3")?.let {
-                valuesO3.add(Entry(count, it?.toFloat())) }
+                valuesO3.add(Entry(date, it?.toFloat())) }
             data?.contaminantes?.get("so2")?.let {
-                valuesSO2.add(Entry(count, it?.toFloat())) }
+                valuesSO2.add(Entry(date, it?.toFloat())) }
             data?.contaminantes?.get("pm25")?.let {
-                valuesPM25.add(Entry(count, it?.toFloat())) }
+                valuesPM25.add(Entry(date, it?.toFloat())) }
             data?.contaminantes?.get("pm10")?.let {
-                valuesPM10.add(Entry(count, it?.toFloat())) }
+                valuesPM10.add(Entry(date, it?.toFloat())) }
             data?.contaminantes?.get("no")?.let {
-                valuesNO.add(Entry(count, it?.toFloat())) }
+                valuesNO.add(Entry(date, it?.toFloat())) }
             data?.contaminantes?.get("nh3")?.let {
-                valuesNH3.add(Entry(count, it?.toFloat())) }
+                valuesNH3.add(Entry(date, it?.toFloat())) }
             data?.contaminantes?.get("co2")?.let {
-                valuesCO2.add(Entry(count, it?.toFloat())) }
-            count++
+                valuesCO2.add(Entry(date, it?.toFloat())) }
+            date++
         }
 
         setCO = LineDataSet(valuesCO, "CO")
@@ -200,14 +258,11 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
         setCO2.mode = LineDataSet.Mode.CUBIC_BEZIER
         setCO2.color = Color.BLUE
 
-
         var lista = mutableListOf<ILineDataSet>()
-
 
         val data = LineData(lista)
         data.setValueTextSize(9f)
         data.setDrawValues(false)
-
         // set data
         chart.data = data
 
@@ -318,18 +373,6 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
 
         chart.notifyDataSetChanged()
         chart.invalidate()
-    }
-
-    override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
-        super.onConfigurationChanged(newConfig)
-        // Checks the orientation of the screen
-        if (newConfig.orientation === android.content.res.Configuration.ORIENTATION_LANDSCAPE) {
-            Toast.makeText(context, "landscape", Toast.LENGTH_SHORT).show()
-            Thread.sleep(500)
-        } else if (newConfig.orientation === android.content.res.Configuration.ORIENTATION_PORTRAIT) {
-            Toast.makeText(context, "portrait", Toast.LENGTH_SHORT).show()
-            Thread.sleep(500)
-        }
     }
 }
 /* create a dataset and give it a type

@@ -5,14 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cardenas.jesus.proyectofinal.R
-import com.cardenas.jesus.proyectofinal.Utils
 import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
+import com.cardenas.jesus.proyectofinal.utilidades.Utils
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.XAxis
 import kotlinx.android.synthetic.main.row_last.view.*
 
 class NewAdapter (
-    val data : MutableList<DatosAirQualityModel?>
+    val data : MutableList<DatosAirQualityModel>
 ) : RecyclerView.Adapter<NewAdapter.ViewHolder>(){
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -64,7 +63,6 @@ class NewAdapter (
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = this.data[position]
         var valorIndice = 0.0
-        var colorIndice:Int
         holder.idEstacion.text = data?.id
         holder.nombreEstacion.text = data?.city
         holder.fecha.text = data?.fecha
@@ -73,7 +71,7 @@ class NewAdapter (
 
         data?.contaminantes?.get("no2")?.let {
             holder.contenedorNO2.visibility = View.VISIBLE
-            holder.dataNO2.text = "NO2 $it"
+            holder.dataNO2.text = "$it"
             if (it > valorIndice) valorIndice = it
             if (it<30) holder.imagenNO2.setImageResource(R.drawable.ic_nivel_bueno_24dp)
             else if(it<=40) holder.imagenNO2.setImageResource(R.drawable.ic_nivel_regular_24dp)
@@ -83,14 +81,16 @@ class NewAdapter (
         }
         data?.contaminantes?.get("co")?.let {
             holder.contenedorCO.visibility = View.VISIBLE
-            holder.dataCO.text = "CO $it"
+            holder.dataCO.text = "$it"
             if (it > valorIndice) valorIndice = it
+            if (it<10) holder.imagenCO.setImageResource(R.drawable.ic_nivel_bueno_24dp)
+            else holder.imagenCO.setImageResource(R.drawable.ic_nivel_malo_24dp)
             contaminantes.add("CO")
             datos.add(it)
         }
         data?.contaminantes?.get("o3")?.let {
             holder.contenedorO3.visibility = View.VISIBLE
-            holder.dataO3.text = "O3 $it"
+            holder.dataO3.text = "$it"
             if (it > valorIndice) valorIndice = it
             if (it<75) holder.imagenO3.setImageResource(R.drawable.ic_nivel_bueno_24dp)
             else if(it<=100) holder.imagenO3.setImageResource(R.drawable.ic_nivel_regular_24dp)
@@ -100,7 +100,7 @@ class NewAdapter (
         }
         data?.contaminantes?.get("pm10")?.let {
             holder.contenedorPM10.visibility = View.VISIBLE
-            holder.dataPM10.text = "PM10 $it"
+            holder.dataPM10.text = "$it"
             if (it > valorIndice) valorIndice = it
             if (it<35) holder.imagenPM10.setImageResource(R.drawable.ic_nivel_bueno_24dp)
             else if(it<=50) holder.imagenPM10.setImageResource(R.drawable.ic_nivel_regular_24dp)
@@ -108,36 +108,32 @@ class NewAdapter (
             contaminantes.add("PM10")
             datos.add(it)
         }
-        data?.contaminantes?.get("co2")?.let {
-            holder.contenedorCO2.visibility = View.VISIBLE
-            holder.dataCO2.text = "CO2 $it"
-            if (it > valorIndice) valorIndice = it
-        }
         data?.contaminantes?.get("no")?.let {
             holder.contenedorNO.visibility = View.VISIBLE
-            holder.dataNO.text = "NO $it"
+            holder.dataNO.text = "$it"
             if (it > valorIndice) valorIndice = it
-        }
-        data?.contaminantes?.get("nh3")?.let {
-            holder.contenedorNH3.visibility = View.VISIBLE
-            holder.dataNH3.text = "NH3 $it"
-            if (it > valorIndice) valorIndice = it
+            contaminantes.add("NO")
+            datos.add(it)
         }
         data?.contaminantes?.get("pm25")?.let {
             holder.contenedorPM25.visibility = View.VISIBLE
-            holder.dataPM25.text = "PM25 $it"
+            holder.dataPM25.text = "$it"
             if (it > valorIndice) valorIndice = it
             if (it<20) holder.imagenPM25.setImageResource(R.drawable.ic_nivel_bueno_24dp)
             else if(it<=25) holder.imagenPM25.setImageResource(R.drawable.ic_nivel_regular_24dp)
             else holder.imagenPM25.setImageResource(R.drawable.ic_nivel_malo_24dp)
+            contaminantes.add("PM25")
+            datos.add(it)
         }
         data?.contaminantes?.get("so2")?.let {
             holder.contenedorSO2.visibility = View.VISIBLE
-            holder.dataSO2.text = "SO2 $it"
+            holder.dataSO2.text = "$it"
             if (it > valorIndice) valorIndice = it
             if (it<15) holder.imagenSO2.setImageResource(R.drawable.ic_nivel_bueno_24dp)
             else if(it<=20) holder.imagenSO2.setImageResource(R.drawable.ic_nivel_regular_24dp)
             else holder.imagenSO2.setImageResource(R.drawable.ic_nivel_malo_24dp)
+            contaminantes.add("SO2")
+            datos.add(it)
         }
         holder.indice.text = valorIndice.toString()
         chart(holder.chart, contaminantes, datos)
@@ -149,39 +145,8 @@ class NewAdapter (
         nombres: MutableList<String>,
         datos: MutableList<Double>
     ) {
-
-        var chart = chart
-
-        chart.description.isEnabled = false
-
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
-
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
-        chart.setMaxVisibleValueCount(60)
-
-        // scaling can now only be done on x- and y-axis separately
-
-        // scaling can now only be done on x- and y-axis separately
-        chart.setPinchZoom(false)
-
-        chart.setDrawBarShadow(false)
-        chart.setDrawGridBackground(false)
-
-        val xAxis: XAxis = chart.xAxis
-        xAxis.setDrawLabels(false)
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.setDrawGridLines(false)
-
-        chart.axisLeft.setDrawGridLines(false)
-
-        // setting data
         Utils.llenar(chart, nombres, datos)
 
-        // add a nice and smooth animation
         chart.animateY(1500)
-
-        chart.legend.isEnabled = true
     }
 }

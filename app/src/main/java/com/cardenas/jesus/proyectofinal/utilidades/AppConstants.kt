@@ -1,4 +1,4 @@
-package com.cardenas.jesus.proyectofinal
+package com.cardenas.jesus.proyectofinal.utilidades
 
 object AppConstants {
     const val ENDPOINT = "https://proyectofinalapi.herokuapp.com/"

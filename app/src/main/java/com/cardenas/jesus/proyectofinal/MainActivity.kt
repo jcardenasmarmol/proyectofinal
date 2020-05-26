@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_consulta_historicos,
             R.id.nav_arduino_ultimos,
             R.id.nav_consulta_arduino,
-            R.id.nav_disp_movil
+            R.id.nav_info,
+            R.id.nav_acerca_de
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
