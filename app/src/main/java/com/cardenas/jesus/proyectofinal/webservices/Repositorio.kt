@@ -1,12 +1,12 @@
 package com.cardenas.jesus.proyectofinal.webservices
 
 import androidx.lifecycle.MutableLiveData
-import com.cardenas.jesus.proyectofinal.BodyClass
-import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
-import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosArduinoDTO
-import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosArduinoUltimosDTO
-import com.cardenas.jesus.proyectofinal.model.dto.historicos.DatosHistoricosDTO
-import com.cardenas.jesus.proyectofinal.model.mapper.DatosMapper
+import com.cardenas.jesus.proyectofinal.modelo.DatosCalidadAire
+import com.cardenas.jesus.proyectofinal.modelo.dto.arduino.DatosArduinoDTO
+import com.cardenas.jesus.proyectofinal.modelo.dto.arduino.DatosArduinoUltimosDTO
+import com.cardenas.jesus.proyectofinal.modelo.dto.historicos.DatosHistoricosDTO
+import com.cardenas.jesus.proyectofinal.modelo.mapper.DatosMapper
+import com.cardenas.jesus.proyectofinal.utilidades.BodyClass
 import com.cardenas.jesus.proyectofinal.webservices.waqi.WAQIServices
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,18 +17,18 @@ class Repositorio {
     companion object {
         private val apiWAQI = ApiClient.generateRetrofitWAQIInstance().create<WAQIServices>()
         private val nuestraAPI = ApiClient.generateRetrofitAPIInstance().create<ResourceServices>()
-        fun getData(estacion: String): MutableLiveData<DatosAirQualityModel> {
-            var datos = MutableLiveData<DatosAirQualityModel>()
+        fun getData(estacion: String): MutableLiveData<DatosCalidadAire> {
+            var datos = MutableLiveData<DatosCalidadAire>()
 
             apiWAQI.requestLastDataFromStation(estacion)
-                .enqueue(object : Callback<DatosAirQualityModel> {
-                    override fun onFailure(call: Call<DatosAirQualityModel>, t: Throwable) {
+                .enqueue(object : Callback<DatosCalidadAire> {
+                    override fun onFailure(call: Call<DatosCalidadAire>, t: Throwable) {
 
                     }
 
                     override fun onResponse(
-                        call: Call<DatosAirQualityModel>,
-                        response: Response<DatosAirQualityModel>
+                        call: Call<DatosCalidadAire>,
+                        response: Response<DatosCalidadAire>
                     ) {
                         datos.value = response.body()
                     }
@@ -38,9 +38,15 @@ class Repositorio {
             return datos
         }
 
-        fun getData(estacion : Int, fechaI : String, fechaF : String): MutableLiveData<List<DatosAirQualityModel>>{
-            var datos = MutableLiveData<List<DatosAirQualityModel>>()
-            nuestraAPI.requestHistories(BodyClass(estacion, fechaI, fechaF))
+        fun getData(estacion : Int, fechaI : String, fechaF : String): MutableLiveData<List<DatosCalidadAire>>{
+            var datos = MutableLiveData<List<DatosCalidadAire>>()
+            nuestraAPI.requestHistories(
+                BodyClass(
+                    estacion,
+                    fechaI,
+                    fechaF
+                )
+            )
                 .enqueue(object : Callback<List<DatosHistoricosDTO>>{
                     override fun onFailure(call: Call<List<DatosHistoricosDTO>>, t: Throwable) {
 
@@ -59,8 +65,8 @@ class Repositorio {
             return datos
         }
 
-        fun getData(estacion : String, fechaI : String, fechaF : String): MutableLiveData<List<DatosAirQualityModel>>{
-            var datos = MutableLiveData<List<DatosAirQualityModel>>()
+        fun getData(estacion : String, fechaI : String, fechaF : String): MutableLiveData<List<DatosCalidadAire>>{
+            var datos = MutableLiveData<List<DatosCalidadAire>>()
             nuestraAPI.requesArduinoFecha(estacion, fechaI, fechaF)
                 .enqueue(object : Callback<List<DatosArduinoDTO>>{
                     override fun onFailure(call: Call<List<DatosArduinoDTO>>, t: Throwable) {
@@ -78,8 +84,8 @@ class Repositorio {
             return datos
         }
 
-        fun getUltimosNuestros() : MutableLiveData<List<DatosAirQualityModel>> {
-            var datos = MutableLiveData<List<DatosAirQualityModel>>()
+        fun getUltimosNuestros() : MutableLiveData<MutableList<DatosCalidadAire>> {
+            var datos = MutableLiveData<MutableList<DatosCalidadAire>>()
             nuestraAPI.requestLastArduino()
                 .enqueue(object : Callback<DatosArduinoUltimosDTO>{
                     override fun onFailure(call: Call<DatosArduinoUltimosDTO>, t: Throwable) {

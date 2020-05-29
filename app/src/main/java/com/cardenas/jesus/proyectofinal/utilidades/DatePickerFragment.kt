@@ -1,4 +1,4 @@
-package com.cardenas.jesus.proyectofinal
+package com.cardenas.jesus.proyectofinal.utilidades
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -23,7 +23,8 @@ class DatePickerFragment : DialogFragment() {
 
     companion object {
         fun newInstance(listener: DatePickerDialog.OnDateSetListener): DatePickerFragment {
-            val fragment = DatePickerFragment()
+            val fragment =
+                DatePickerFragment()
             fragment.listener = listener
             return fragment
         }

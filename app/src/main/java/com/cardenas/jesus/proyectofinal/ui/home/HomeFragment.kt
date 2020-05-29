@@ -10,18 +10,15 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cardenas.jesus.proyectofinal.R
-import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
-import com.cardenas.jesus.proyectofinal.ui.adapters.NewAdapter
-import com.cardenas.jesus.proyectofinal.utilidades.AppConstants
+import com.cardenas.jesus.proyectofinal.modelo.DatosCalidadAire
+import com.cardenas.jesus.proyectofinal.ui.adapters.DatosCalidadAireAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
 
-    var estaciones = listOf(AppConstants.SEVILLACODE,AppConstants.GREECECODE,AppConstants.SOFIACODE)
-
     private lateinit var recyclerView : RecyclerView
-    private lateinit var adapter : NewAdapter
+    private lateinit var adapter : DatosCalidadAireAdapter
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
@@ -33,18 +30,18 @@ class HomeFragment : Fragment() {
         recyclerView = view.findViewById(R.id.mainRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter =
-            NewAdapter(mutableListOf())
+            DatosCalidadAireAdapter(mutableListOf())
         recyclerView.adapter = adapter
         homeViewModel = HomeViewModel.HomeViewModelFactory().create(HomeViewModel::class.java)
 
-        homeViewModel.GetDatos(estaciones).map {
+        homeViewModel.GetDatos().map {
             it.observe(viewLifecycleOwner, Observer { dato -> actualizar(dato) })
         }
 
         return view
     }
 
-    private fun actualizar(it : DatosAirQualityModel){
+    private fun actualizar(it : DatosCalidadAire){
         adapter.data.add(it)
         adapter.notifyDataSetChanged()
         if (loadingView.isVisible){

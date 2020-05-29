@@ -1,17 +1,14 @@
-package com.cardenas.jesus.proyectofinal.model.mapper
+package com.cardenas.jesus.proyectofinal.modelo.mapper
 
-import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
-import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosArduinoDTO
-import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosArduinoUltimosDTO
-import com.cardenas.jesus.proyectofinal.model.dto.historicos.DatosHistoricosDTO
+import com.cardenas.jesus.proyectofinal.modelo.DatosCalidadAire
+import com.cardenas.jesus.proyectofinal.modelo.dto.arduino.DatosArduinoDTO
+import com.cardenas.jesus.proyectofinal.modelo.dto.arduino.DatosArduinoUltimosDTO
+import com.cardenas.jesus.proyectofinal.modelo.dto.historicos.DatosHistoricosDTO
 
 class DatosMapper {
 
-    /**
-     * Para transfromar DatosGistoricosDTO en DatosAirQualityModel
-     */
-    fun transformListaDatosHistoricos(items: List<DatosHistoricosDTO>?) : List<DatosAirQualityModel> {
-        var lista = mutableListOf<DatosAirQualityModel>()
+    fun transformListaDatosHistoricos(items: List<DatosHistoricosDTO>?) : List<DatosCalidadAire> {
+        var lista = mutableListOf<DatosCalidadAire>()
 
         items?.groupBy {
             it.date
@@ -22,7 +19,7 @@ class DatosMapper {
         return lista.sortedBy { it.fecha }
     }
 
-    private fun transformDatoHistorico(items: List<DatosHistoricosDTO>) : DatosAirQualityModel {
+    private fun transformDatoHistorico(items: List<DatosHistoricosDTO>) : DatosCalidadAire {
         var hashMap = HashMap<String, Double>()
         items?.map {
             hashMap[it.contaminante.toLowerCase()] = it.valor
@@ -35,15 +32,15 @@ class DatosMapper {
             else -> ""
         }
 
-        return DatosAirQualityModel(
+        return DatosCalidadAire(
             items?.elementAtOrNull(0)?.estacion.toString(),
             city,
             items?.get(0)?.date ?: "",
             hashMap)
     }
 
-    fun transformUltimosDatosArduino(items: DatosArduinoUltimosDTO?) : List<DatosAirQualityModel> {
-        var lista = mutableListOf<DatosAirQualityModel>()
+    fun transformUltimosDatosArduino(items: DatosArduinoUltimosDTO?) : MutableList<DatosCalidadAire> {
+        var lista = mutableListOf<DatosCalidadAire>()
 
 
         if (items?.spainData?.isNotEmpty()!!)
@@ -56,8 +53,8 @@ class DatosMapper {
         return lista
     }
 
-    fun transformListaDatosArduino(items: List<DatosArduinoDTO>?) : List<DatosAirQualityModel> {
-        var lista = mutableListOf<DatosAirQualityModel>()
+    fun transformListaDatosArduino(items: List<DatosArduinoDTO>?) : List<DatosCalidadAire> {
+        var lista = mutableListOf<DatosCalidadAire>()
 
         items?.groupBy {
             it.date
@@ -68,7 +65,7 @@ class DatosMapper {
         return lista.sortedBy { it.fecha }
     }
 
-    private fun transformDatoArduino(items: List<DatosArduinoDTO>?) : DatosAirQualityModel{
+    private fun transformDatoArduino(items: List<DatosArduinoDTO>?) : DatosCalidadAire{
         var hashMap = HashMap<String, Double>()
         items?.map {
             it?.valor?.let {valor ->
@@ -83,7 +80,7 @@ class DatosMapper {
             else -> ""
         }
 
-        return DatosAirQualityModel(
+        return DatosCalidadAire(
             items?.elementAtOrNull(0)?.estacion ?: "",
             city,
             items?.elementAtOrNull(0)?.date ?: "",

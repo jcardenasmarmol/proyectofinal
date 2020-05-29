@@ -3,16 +3,16 @@ package com.cardenas.jesus.proyectofinal.ui.grafica
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
+import com.cardenas.jesus.proyectofinal.modelo.DatosCalidadAire
 import com.cardenas.jesus.proyectofinal.webservices.Repositorio
 
 class GraphViewModel : ViewModel() {
 
-    fun getDatosOficiales(estacion : Int, fechaI : String, fechaF : String) : MutableLiveData<List<DatosAirQualityModel>> {
+    fun getDatosOficiales(estacion : Int, fechaI : String, fechaF : String) : MutableLiveData<List<DatosCalidadAire>> {
         return Repositorio.getData(estacion,fechaI,fechaF)
     }
 
-    fun getDatosArduino(estacion : String, fechaI : String, fechaF : String) : MutableLiveData<List<DatosAirQualityModel>> {
+    fun getDatosArduino(estacion : String, fechaI : String, fechaF : String) : MutableLiveData<List<DatosCalidadAire>> {
         return Repositorio.getData(estacion,fechaI,fechaF)
     }
 

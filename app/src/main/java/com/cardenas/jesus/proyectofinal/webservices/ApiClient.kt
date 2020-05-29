@@ -1,6 +1,6 @@
 package com.cardenas.jesus.proyectofinal.webservices
 
-import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
+import com.cardenas.jesus.proyectofinal.modelo.DatosCalidadAire
 import com.cardenas.jesus.proyectofinal.utilidades.AppConstants
 import com.cardenas.jesus.proyectofinal.webservices.waqi.Deserializer
 import com.google.gson.GsonBuilder
@@ -10,13 +10,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiClient {
     companion object {
+
         private fun generateOkHttpBuilder() : OkHttpClient {
             return OkHttpClient().newBuilder().build()
         }
+
         fun generateRetrofitWAQIInstance() : Retrofit {
 
             val builder = GsonBuilder()
-            builder.registerTypeAdapter(DatosAirQualityModel::class.java,
+            builder.registerTypeAdapter(DatosCalidadAire::class.java,
                 Deserializer()
             )
 

@@ -1,4 +1,4 @@
-package com.cardenas.jesus.proyectofinal.model.dto.historicos
+package com.cardenas.jesus.proyectofinal.modelo.dto.historicos
 
 import com.google.gson.annotations.SerializedName
 

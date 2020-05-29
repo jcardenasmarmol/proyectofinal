@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cardenas.jesus.proyectofinal.R
-import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
-import com.cardenas.jesus.proyectofinal.ui.adapters.DatosAirQualiyAdapter
+import com.cardenas.jesus.proyectofinal.modelo.DatosCalidadAire
+import com.cardenas.jesus.proyectofinal.ui.adapters.DatosCalidadAireAdapter
 import kotlinx.android.synthetic.main.fragment_ultimos_arduino.*
 
 class UltimosArduinoFragment : Fragment() {
@@ -31,10 +31,10 @@ class UltimosArduinoFragment : Fragment() {
         return view
     }
 
-    fun setDataSet(result: List<DatosAirQualityModel?>) {
+    fun setDataSet(result: MutableList<DatosCalidadAire>) {
         mainRecyclerView?.layoutManager = LinearLayoutManager(this.context)
         mainRecyclerView?.adapter =
-            DatosAirQualiyAdapter(
+            DatosCalidadAireAdapter(
                 result
             )
         loadingView?.visibility = View.GONE

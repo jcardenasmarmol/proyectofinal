@@ -1,10 +1,9 @@
 package com.cardenas.jesus.proyectofinal.webservices
 
-import com.cardenas.jesus.proyectofinal.BodyClass
-import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosArduinoDTO
-import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosArduinoUltimosDTO
-import com.cardenas.jesus.proyectofinal.model.dto.arduino.DatosDispositivoPortableDTO
-import com.cardenas.jesus.proyectofinal.model.dto.historicos.DatosHistoricosDTO
+import com.cardenas.jesus.proyectofinal.modelo.dto.arduino.DatosArduinoDTO
+import com.cardenas.jesus.proyectofinal.modelo.dto.arduino.DatosArduinoUltimosDTO
+import com.cardenas.jesus.proyectofinal.modelo.dto.historicos.DatosHistoricosDTO
+import com.cardenas.jesus.proyectofinal.utilidades.BodyClass
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,9 +17,6 @@ interface ResourceServices {
 
     @POST("historicos")
     fun requestHistories(@Body body: BodyClass) : Call<List<DatosHistoricosDTO>>
-
-    @GET("arduino/portables")
-    fun requestPortableDeviceData() : Call<List<DatosDispositivoPortableDTO>>
 
     @POST("arduino/{estacion}/{fechaInicial}/{fechaFinal}")
     fun requesArduinoFecha(@Path("estacion")estacion :String,

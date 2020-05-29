@@ -1,4 +1,4 @@
-package com.cardenas.jesus.proyectofinal.model.dto.arduino
+package com.cardenas.jesus.proyectofinal.modelo.dto.arduino
 
 import com.google.gson.annotations.SerializedName
 

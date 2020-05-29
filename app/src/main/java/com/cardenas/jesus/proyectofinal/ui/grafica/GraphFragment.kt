@@ -10,7 +10,7 @@ import android.widget.Switch
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.cardenas.jesus.proyectofinal.R
-import com.cardenas.jesus.proyectofinal.model.DatosAirQualityModel
+import com.cardenas.jesus.proyectofinal.modelo.DatosCalidadAire
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.Legend.LegendForm
 import com.github.mikephil.charting.components.XAxis
@@ -66,7 +66,7 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
         return view
     }
 
-    fun setDataSet(result: List<DatosAirQualityModel?>) {
+    fun setDataSet(result: List<DatosCalidadAire?>) {
         crearGrafico(result)
         view?.let {
             setUI(it)
@@ -125,23 +125,20 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
 
     }
 
-    private fun crearGrafico(result: List<DatosAirQualityModel?>) {
+    private fun crearGrafico(result: List<DatosCalidadAire?>) {
+        chart.description.text = "Eje Y -> μg/m3, Eje X -> fecha"
+        chart.description.setPosition(1000f,100f)
+        chart.description.isEnabled = true
 
-        // no description text
-        chart.description.isEnabled = false
 
-        // enable touch gestures
         chart.setTouchEnabled(true)
 
-        // enable scaling and dragging
         chart.isDragEnabled = true
         chart.setScaleEnabled(true)
 
-        // if disabled, scaling can be done on x- and y-axis separately
         chart.setPinchZoom(true)
 
         chart.setDrawGridBackground(false)
-        //chart.maxHighlightDistance = 300f
 
         var listaFechas = mutableListOf<String>()
         result.map {
@@ -195,7 +192,7 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
     }
 
 
-    private fun setData(result: List<DatosAirQualityModel?>) {
+    private fun setData(result: List<DatosCalidadAire?>) {
 
         val valuesCO = ArrayList<Entry>()
         val valuesNO2 = ArrayList<Entry>()
@@ -375,21 +372,3 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
         chart.invalidate()
     }
 }
-/* create a dataset and give it a type
-            set1 = LineDataSet(values, "DataSet 1")
-            set1.mode = LineDataSet.Mode.CUBIC_BEZIER
-            set1.cubicIntensity = 0.2f
-            set1.setDrawFilled(true)
-            set1.setDrawCircles(false)
-            set1.lineWidth = 1.8f
-            set1.circleRadius = 4f
-            set1.setCircleColor(Color.WHITE)
-            set1.highLightColor = Color.rgb(244, 117, 117)
-            set1.color = Color.WHITE
-            set1.fillColor = Color.WHITE
-            set1.fillAlpha = 100
-            set1.setDrawHorizontalHighlightIndicator(false)
-            set1.fillFormatter =
-                IFillFormatter { dataSet, dataProvider -> chart.axisLeft.axisMinimum }
-
-            */

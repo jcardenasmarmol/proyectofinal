@@ -13,10 +13,8 @@
             android:id="@+id/nav_arduino_ultimos"
             android:icon="@drawable/ultimos_historicos"
             android:title="@string/menu_arduino_ult" />
-
     </group>
     <group android:checkableBehavior="single">
-
             <item
                 android:id="@+id/nav_consulta_historicos"
                 android:icon="@drawable/consulta_historicos"
@@ -26,19 +24,13 @@
                 android:id="@+id/nav_consulta_arduino"
                 android:icon="@drawable/consulta_historicos"
                 android:title="@string/menu_arduino" />
-
     </group>
-    <item android:title="Informacion">
+    <item android:title="">
         <menu>
             <item
                 android:id="@+id/nav_info"
                 android:icon="@drawable/ic_info_24dp"
                 android:title="@string/menu_info" />
-
-            <item
-                android:id="@+id/nav_acerca_de"
-                android:icon="@drawable/ic_info_24dp"
-                android:title="Acerca de" />
         </menu>
     </item>
 </menu>

@@ -12,9 +12,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.cardenas.jesus.proyectofinal.DatePickerFragment
 import com.cardenas.jesus.proyectofinal.R
 import com.cardenas.jesus.proyectofinal.utilidades.AppConstants
+import com.cardenas.jesus.proyectofinal.utilidades.DatePickerFragment
 
 class ConsultaFragment : Fragment() {
 
