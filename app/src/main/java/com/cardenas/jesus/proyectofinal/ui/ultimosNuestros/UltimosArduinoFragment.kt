@@ -21,7 +21,7 @@ class UltimosArduinoFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        ultimosNuestrosViewModel = UltimosNuestrosViewModel.UltimosNuestrosViewModelFactory().create(UltimosNuestrosViewModel::class.java)
+        ultimosNuestrosViewModel = UltimosNuestrosViewModel.UltimosNuestrosViewModelFactory(parentFragmentManager).create(UltimosNuestrosViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_ultimos_arduino, container, false)
 
         ultimosNuestrosViewModel.getUltimos().observe(viewLifecycleOwner, Observer {

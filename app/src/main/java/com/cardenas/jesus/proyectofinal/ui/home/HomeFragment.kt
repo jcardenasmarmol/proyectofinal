@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,8 +18,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
-    private lateinit var recyclerView : RecyclerView
-    private lateinit var adapter : DatosCalidadAireAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: DatosCalidadAireAdapter
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
@@ -32,19 +33,21 @@ class HomeFragment : Fragment() {
         adapter =
             DatosCalidadAireAdapter(mutableListOf())
         recyclerView.adapter = adapter
-        homeViewModel = HomeViewModel.HomeViewModelFactory().create(HomeViewModel::class.java)
+        homeViewModel = HomeViewModel.HomeViewModelFactory(parentFragmentManager).create(HomeViewModel::class.java)
 
         homeViewModel.GetDatos().map {
-            it.observe(viewLifecycleOwner, Observer { dato -> actualizar(dato) })
+            it.observe(viewLifecycleOwner, Observer { dato ->
+                actualizar(dato)
+            })
         }
 
         return view
     }
 
-    private fun actualizar(it : DatosCalidadAire){
+    private fun actualizar(it: DatosCalidadAire) {
         adapter.data.add(it)
         adapter.notifyDataSetChanged()
-        if (loadingView.isVisible){
+        if (loadingView.isVisible) {
             loadingView.visibility = View.GONE
             recyclerView.visibility = View.VISIBLE
         }

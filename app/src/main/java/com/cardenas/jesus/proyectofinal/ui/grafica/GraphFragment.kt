@@ -43,7 +43,7 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        graphViewModel = GraphViewModel.GraphViewModelFactory().create(GraphViewModel::class.java)
+        graphViewModel = GraphViewModel.GraphViewModelFactory(parentFragmentManager).create(GraphViewModel::class.java)
 
         val view = inflater.inflate(R.layout.fragment_graph, container, false)
 

@@ -1,5 +1,6 @@
 package com.cardenas.jesus.proyectofinal.ui.consultas
 
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,11 +8,11 @@ import androidx.lifecycle.ViewModelProvider
 class ConsultaViewModel : ViewModel() {
 
     val fechaInicial = MutableLiveData<String>().apply {
-        value = "2020-04-01"
+        value = "2020-06-01"
     }
 
     val fechaFinal = MutableLiveData<String>().apply {
-        value = "2020-04-07"
+        value = "2020-06-07"
     }
 
     fun getEstaciones(consultaArduino : Boolean) : MutableLiveData<Array<String>>{

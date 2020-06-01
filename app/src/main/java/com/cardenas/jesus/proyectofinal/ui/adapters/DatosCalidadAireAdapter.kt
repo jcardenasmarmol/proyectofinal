@@ -157,14 +157,24 @@ class DatosCalidadAireAdapter (
         data.contaminantes["co2"]?.let {
             holder.contenedorCO2.visibility = View.VISIBLE
             holder.dataCO2.text = "$it"
-            if (it > valorIndice) valorIndice = it
+
+            var color : Int
+            if (it<500000) color = R.drawable.ic_nivel_bueno_24dp
+            else color = R.drawable.ic_nivel_malo_24dp
+            holder.imagenCO2.setImageResource(color)
+            if (it > valorIndice) {valorIndice = it; colorIndice = color}
 
             contaminantes.put("CO2",it)
         }
         data.contaminantes["no"]?.let {
             holder.contenedorNO.visibility = View.VISIBLE
             holder.dataNO.text = "$it"
-            if (it > valorIndice) valorIndice = it
+
+            var color : Int
+            if (it<30) color = R.drawable.ic_nivel_bueno_24dp
+            else color = R.drawable.ic_nivel_malo_24dp
+            holder.imagenNO.setImageResource(color)
+            if (it > valorIndice) {valorIndice = it; colorIndice = color}
 
             contaminantes.put("NO",it)
         }
@@ -235,8 +245,18 @@ class DatosCalidadAireAdapter (
             "SO2" -> colorSO2(valor)
             "PM25" -> colorPM25(valor)
             "CO" -> colorCO(valor)
+            "NO" -> colorNO(valor)
+            "CO2" -> colorCO2(valor)
             else -> Color.LTGRAY
         }
+    }
+
+    private fun colorCO2(valor: Float): Int {
+        return if (valor < 500000) Color.GREEN else Color.RED
+    }
+
+    private fun colorNO(valor: Float): Int {
+        return if (valor < 30) Color.GREEN else Color.RED
     }
 
     private fun colorCO(valor: Float): Int {

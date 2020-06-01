@@ -75,7 +75,7 @@ class DatosMapper {
         }
         val city = when (items?.elementAtOrNull(0)?.estacion){
             "Spain" -> "Sevilla, España"
-            "Bulgarian" -> "Sofía, Bulgaria"
+            "Bulgaria" -> "Sofía, Bulgaria"
             "Greece" -> "Chania, Greece"
             else -> ""
         }
