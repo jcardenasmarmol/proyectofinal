@@ -7,19 +7,19 @@ import com.cardenas.jesus.proyectofinal.modelo.dto.historicos.DatosHistoricosDTO
 
 class DatosMapper {
 
-    fun transformListaDatosHistoricos(items: List<DatosHistoricosDTO>?) : List<DatosCalidadAire> {
+    fun transformarListaDatosHistoricos(items: List<DatosHistoricosDTO>?) : List<DatosCalidadAire> {
         var lista = mutableListOf<DatosCalidadAire>()
 
         items?.groupBy {
             it.date
         }?.map {
-            lista.add(transformDatoHistorico(it.value))
+            lista.add(transformarUnDatoHistorico(it.value))
         }
 
         return lista.sortedBy { it.fecha }
     }
 
-    private fun transformDatoHistorico(items: List<DatosHistoricosDTO>) : DatosCalidadAire {
+    private fun transformarUnDatoHistorico(items: List<DatosHistoricosDTO>) : DatosCalidadAire {
         var hashMap = HashMap<String, Double>()
         items?.map {
             hashMap[it.contaminante.toLowerCase()] = it.valor
@@ -39,33 +39,33 @@ class DatosMapper {
             hashMap)
     }
 
-    fun transformUltimosDatosArduino(items: DatosArduinoUltimosDTO?) : MutableList<DatosCalidadAire> {
+    fun transformarUltimosDatosArduino(items: DatosArduinoUltimosDTO?) : MutableList<DatosCalidadAire> {
         var lista = mutableListOf<DatosCalidadAire>()
 
 
         if (items?.spainData?.isNotEmpty()!!)
-            lista.add(transformDatoArduino(items?.spainData))
-        if (items?.bulgariaData?.isNotEmpty()!!)
-            lista.add(transformDatoArduino(items?.bulgariaData))
+            lista.add(transformarDatoArduino(items?.spainData))
         if (items?.greeceData?.isNotEmpty()!!)
-            lista.add(transformDatoArduino(items?.greeceData))
+            lista.add(transformarDatoArduino(items?.greeceData))
+        if (items?.bulgariaData?.isNotEmpty()!!)
+            lista.add(transformarDatoArduino(items?.bulgariaData))
 
         return lista
     }
 
-    fun transformListaDatosArduino(items: List<DatosArduinoDTO>?) : List<DatosCalidadAire> {
+    fun transformarListaDatosArduino(items: List<DatosArduinoDTO>?) : List<DatosCalidadAire> {
         var lista = mutableListOf<DatosCalidadAire>()
 
         items?.groupBy {
             it.date
         }?.map {
-            lista.add(transformDatoArduino(it.value))
+            lista.add(transformarDatoArduino(it.value))
         }
 
         return lista.sortedBy { it.fecha }
     }
 
-    private fun transformDatoArduino(items: List<DatosArduinoDTO>?) : DatosCalidadAire{
+    private fun transformarDatoArduino(items: List<DatosArduinoDTO>?) : DatosCalidadAire{
         var hashMap = HashMap<String, Double>()
         items?.map {
             it?.valor?.let {valor ->

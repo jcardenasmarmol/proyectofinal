@@ -59,7 +59,7 @@ class Repositorio {
                         response: Response<List<DatosHistoricosDTO>>
                     ) {
                         if (response.isSuccessful){
-                            datos.value = DatosMapper().transformListaDatosHistoricos(response.body())
+                            datos.value = DatosMapper().transformarListaDatosHistoricos(response.body())
                         }
                     }
 
@@ -79,7 +79,7 @@ class Repositorio {
                         call: Call<List<DatosArduinoDTO>>,
                         response: Response<List<DatosArduinoDTO>>
                     ) {
-                        datos.value = DatosMapper().transformListaDatosArduino(response.body())
+                        datos.value = DatosMapper().transformarListaDatosArduino(response.body())
                     }
 
 
@@ -99,7 +99,7 @@ class Repositorio {
                         call: Call<DatosArduinoUltimosDTO>,
                         response: Response<DatosArduinoUltimosDTO>
                     ) {
-                        datos.value = DatosMapper().transformUltimosDatosArduino(response.body())
+                        datos.value = DatosMapper().transformarUltimosDatosArduino(response.body())
                     }
 
                 })
