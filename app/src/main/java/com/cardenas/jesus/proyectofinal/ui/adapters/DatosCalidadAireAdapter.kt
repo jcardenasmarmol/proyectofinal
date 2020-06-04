@@ -73,7 +73,7 @@ class DatosCalidadAireAdapter (
         var colorIndice = R.drawable.ic_nivel_bueno_24dp
 
         holder.idEstacion.text = data.id
-        holder.nombreEstacion.text = data.city
+        holder.nombreEstacion.text = data.ciudad
         holder.fecha.text = data.fecha
 
         val contaminantes = hashMapOf<String, Double>()
@@ -96,7 +96,7 @@ class DatosCalidadAireAdapter (
             holder.dataCO.text = "$it"
 
             var color : Int
-            if (it<10) color = R.drawable.ic_nivel_bueno_24dp
+            if (it<=10) color = R.drawable.ic_nivel_bueno_24dp
             else color = R.drawable.ic_nivel_malo_24dp
             holder.imagenCO.setImageResource(color)
             if (it > valorIndice) {valorIndice = it; colorIndice = color}
@@ -159,7 +159,7 @@ class DatosCalidadAireAdapter (
             holder.dataCO2.text = "$it"
 
             var color : Int
-            if (it<500000) color = R.drawable.ic_nivel_bueno_24dp
+            if (it<=500000) color = R.drawable.ic_nivel_bueno_24dp
             else color = R.drawable.ic_nivel_malo_24dp
             holder.imagenCO2.setImageResource(color)
             if (it > valorIndice) {valorIndice = it; colorIndice = color}
@@ -171,7 +171,7 @@ class DatosCalidadAireAdapter (
             holder.dataNO.text = "$it"
 
             var color : Int
-            if (it<30) color = R.drawable.ic_nivel_bueno_24dp
+            if (it<=30) color = R.drawable.ic_nivel_bueno_24dp
             else color = R.drawable.ic_nivel_malo_24dp
             holder.imagenNO.setImageResource(color)
             if (it > valorIndice) {valorIndice = it; colorIndice = color}

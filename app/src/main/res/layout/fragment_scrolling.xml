@@ -27,9 +27,10 @@
             android:text="@string/info_contaminantes"
             android:autoLink="web" />
 
-        <View
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"/>
+            android:layout_height="wrap_content"
+            android:src="@drawable/tabla_contaminantes"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:text="@string/large_text"
             android:autoLink="web" />
+
 
         <View
             android:layout_width="wrap_content"

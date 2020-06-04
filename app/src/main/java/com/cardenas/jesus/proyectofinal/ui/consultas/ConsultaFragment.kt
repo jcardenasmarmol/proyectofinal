@@ -13,6 +13,7 @@ import com.cardenas.jesus.proyectofinal.R
 import com.cardenas.jesus.proyectofinal.utilidades.AppConstants
 import com.cardenas.jesus.proyectofinal.utilidades.DatePickerFragment
 import com.cardenas.jesus.proyectofinal.utilidades.DialogoAlerta
+import com.cardenas.jesus.proyectofinal.utilidades.twoDigits
 import kotlinx.android.synthetic.main.fragment_consulta.*
 
 class ConsultaFragment : Fragment() {
@@ -106,9 +107,6 @@ class ConsultaFragment : Fragment() {
             })
         newFragment.show(parentFragmentManager, "datePicker")
     }
-
-    fun Int.twoDigits() =
-        if (this <= 9) "0$this" else this.toString()
 
 }
 

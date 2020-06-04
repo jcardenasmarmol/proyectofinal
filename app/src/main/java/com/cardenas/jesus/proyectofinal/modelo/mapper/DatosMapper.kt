@@ -11,7 +11,7 @@ class DatosMapper {
         var lista = mutableListOf<DatosCalidadAire>()
 
         items?.groupBy {
-            it.date
+            it.fecha
         }?.map {
             lista.add(transformarUnDatoHistorico(it.value))
         }
@@ -35,7 +35,7 @@ class DatosMapper {
         return DatosCalidadAire(
             items?.elementAtOrNull(0)?.estacion.toString(),
             city,
-            items?.get(0)?.date ?: "",
+            items?.get(0)?.fecha ?: "",
             hashMap)
     }
 
@@ -57,7 +57,7 @@ class DatosMapper {
         var lista = mutableListOf<DatosCalidadAire>()
 
         items?.groupBy {
-            it.date
+            it.fecha
         }?.map {
             lista.add(transformarDatoArduino(it.value))
         }
@@ -83,7 +83,7 @@ class DatosMapper {
         return DatosCalidadAire(
             items?.elementAtOrNull(0)?.estacion ?: "",
             city,
-            items?.elementAtOrNull(0)?.date ?: "",
+            items?.elementAtOrNull(0)?.fecha ?: "",
             hashMap)
     }
 

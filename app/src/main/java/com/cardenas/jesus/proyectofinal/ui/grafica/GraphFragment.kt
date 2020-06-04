@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.Switch
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.cardenas.jesus.proyectofinal.R
 import com.cardenas.jesus.proyectofinal.modelo.DatosCalidadAire
+import com.cardenas.jesus.proyectofinal.utilidades.setTitle
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.Legend.LegendForm
 import com.github.mikephil.charting.components.XAxis
@@ -49,6 +51,7 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
 
         val consultaArduino = arguments?.getBoolean("consultaArduino") ?: false
         if (consultaArduino){
+            setTitle("Consulta estacion ${arguments?.getInt("estacion")}")
             graphViewModel.getDatosArduino(arguments?.getString("estacion") ?: "Spain",
                 arguments?.getString("fechaInicial") ?: "2020-01-01",
                 arguments?.getString("fechaFinal") ?: "2020-01-15")
@@ -56,6 +59,7 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
                     setDataSet(it)
                 })
         } else {
+            setTitle("Consulta estacion ${arguments?.getInt("estacion")}")
             graphViewModel.getDatosOficiales(arguments?.getInt("estacion") ?: 8495,
                 arguments?.getString("fechaInicial") ?: "2020-01-01",
                 arguments?.getString("fechaFinal") ?: "2020-01-15")

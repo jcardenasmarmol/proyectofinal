@@ -22,15 +22,6 @@ class DatosMapperTest {
     }
 
     @Test
-    fun tesTransformarListaDatosHistoricosVacio() {
-
-        var obtenido = mapper.transformarListaDatosHistoricos(listOf())
-        var esperado = listOf<DatosCalidadAire>()
-
-        assertEquals(esperado, obtenido)
-    }
-
-    @Test
     fun testTransformarListaDatosArduino() {
         var obtenido = mapper.transformarListaDatosArduino(llenarListaDatosArduinoDTO())
         var esperado = listaDatosCalidadAireDesdeArduino()
