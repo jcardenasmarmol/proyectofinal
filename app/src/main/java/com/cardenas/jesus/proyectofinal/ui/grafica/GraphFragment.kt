@@ -26,47 +26,63 @@ import kotlinx.android.synthetic.main.fragment_graph.*
 
 class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
 
-    lateinit var setCO : LineDataSet
-    lateinit var setNO2 : LineDataSet
-    lateinit var setO3 : LineDataSet
-    lateinit var setSO2 : LineDataSet
-    lateinit var setPM25 : LineDataSet
-    lateinit var setPM10 : LineDataSet
-    lateinit var setNO : LineDataSet
-    lateinit var setNH3 : LineDataSet
-    lateinit var setCO2 : LineDataSet
-
+    private lateinit var setCO: LineDataSet
+    private lateinit var setNO2: LineDataSet
+    private lateinit var setO3: LineDataSet
+    private lateinit var setSO2: LineDataSet
+    private lateinit var setPM25: LineDataSet
+    private lateinit var setPM10: LineDataSet
+    private lateinit var setNO: LineDataSet
+    private lateinit var setNH3: LineDataSet
+    private lateinit var setCO2: LineDataSet
     private lateinit var graphViewModel: GraphViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(null)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        graphViewModel = GraphViewModel.GraphViewModelFactory(parentFragmentManager).create(GraphViewModel::class.java)
+        graphViewModel = GraphViewModel.GraphViewModelFactory(parentFragmentManager)
+            .create(GraphViewModel::class.java)
 
         val view = inflater.inflate(R.layout.fragment_graph, container, false)
-
+        var titulo: String
         val consultaArduino = arguments?.getBoolean("consultaArduino") ?: false
-        if (consultaArduino){
-            setTitle("Consulta estacion ${arguments?.getInt("estacion")}")
-            graphViewModel.getDatosArduino(arguments?.getString("estacion") ?: "Spain",
+        if (consultaArduino) {
+            titulo = when (arguments?.getString("estacion")) {
+                "Spain" -> "Sevilla, España"
+                "Greece" -> "Chania, Grecia"
+                "Bulgaria" -> "Sofía, Bulgaria"
+                else -> ""
+            }
+            graphViewModel.getDatosArduino(
+                arguments?.getString("estacion") ?: "Spain",
                 arguments?.getString("fechaInicial") ?: "2020-01-01",
-                arguments?.getString("fechaFinal") ?: "2020-01-15")
+                arguments?.getString("fechaFinal") ?: "2020-01-15"
+            )
                 .observe(viewLifecycleOwner, Observer {
                     setDataSet(it)
                 })
         } else {
-            setTitle("Consulta estacion ${arguments?.getInt("estacion")}")
-            graphViewModel.getDatosOficiales(arguments?.getInt("estacion") ?: 8495,
+            titulo = when (arguments?.getInt("estacion")) {
+                8495 -> "Bermejales, Sevilla, España"
+                12410 -> "Patra-2, Grecia"
+                8084 -> "Druzhba, Sofía, Bulgaria"
+                else -> ""
+            }
+            graphViewModel.getDatosOficiales(
+                arguments?.getInt("estacion") ?: 8495,
                 arguments?.getString("fechaInicial") ?: "2020-01-01",
-                arguments?.getString("fechaFinal") ?: "2020-01-15")
+                arguments?.getString("fechaFinal") ?: "2020-01-15"
+            )
                 .observe(viewLifecycleOwner, Observer {
                     setDataSet(it)
                 })
         }
+        setTitle(titulo)
         return view
     }
 
@@ -90,48 +106,48 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
         actualizaCO2(switchCO2.isChecked)
     }
 
-    private fun setUI(view : View) {
+    private fun setUI(view: View) {
         val switchCO = view.findViewById<Switch>(R.id.switchCO)
         switchCO.setOnCheckedChangeListener(this)
-        if(setCO.values.isNotEmpty()) switchCO.visibility = View.VISIBLE
+        if (setCO.values.isNotEmpty()) switchCO.visibility = View.VISIBLE
 
         val switchNO2 = view.findViewById<Switch>(R.id.switchNO2)
         switchNO2.setOnCheckedChangeListener(this)
-        if(setNO2.values.isNotEmpty()) switchNO2.visibility = View.VISIBLE
+        if (setNO2.values.isNotEmpty()) switchNO2.visibility = View.VISIBLE
 
         val switchO3 = view.findViewById<Switch>(R.id.switchO3)
         switchO3.setOnCheckedChangeListener(this)
-        if(setO3.values.isNotEmpty()) switchO3.visibility = View.VISIBLE
+        if (setO3.values.isNotEmpty()) switchO3.visibility = View.VISIBLE
 
         val switchSO2 = view.findViewById<Switch>(R.id.switchSO2)
         switchSO2.setOnCheckedChangeListener(this)
-        if(setSO2.values.isNotEmpty()) switchSO2.visibility = View.VISIBLE
+        if (setSO2.values.isNotEmpty()) switchSO2.visibility = View.VISIBLE
 
         val switchPM25 = view.findViewById<Switch>(R.id.switchPM25)
         switchPM25.setOnCheckedChangeListener(this)
-        if(setPM25.values.isNotEmpty()) switchPM25.visibility = View.VISIBLE
+        if (setPM25.values.isNotEmpty()) switchPM25.visibility = View.VISIBLE
 
         val switchPM10 = view.findViewById<Switch>(R.id.switchPM10)
         switchPM10.setOnCheckedChangeListener(this)
-        if(setPM10.values.isNotEmpty()) switchPM10.visibility = View.VISIBLE
+        if (setPM10.values.isNotEmpty()) switchPM10.visibility = View.VISIBLE
 
         val switchNO = view.findViewById<Switch>(R.id.switchNO)
         switchNO.setOnCheckedChangeListener(this)
-        if(setNO.values.isNotEmpty()) switchNO.visibility = View.VISIBLE
+        if (setNO.values.isNotEmpty()) switchNO.visibility = View.VISIBLE
 
         val switchNH3 = view.findViewById<Switch>(R.id.switchNH3)
         switchNH3.setOnCheckedChangeListener(this)
-        if(setNH3.values.isNotEmpty()) switchNH3.visibility = View.VISIBLE
+        if (setNH3.values.isNotEmpty()) switchNH3.visibility = View.VISIBLE
 
         val switchCO2 = view.findViewById<Switch>(R.id.switchCO2)
         switchCO2.setOnCheckedChangeListener(this)
-        if(setCO2.values.isNotEmpty()) switchCO2.visibility = View.VISIBLE
+        if (setCO2.values.isNotEmpty()) switchCO2.visibility = View.VISIBLE
 
     }
 
     private fun crearGrafico(result: List<DatosCalidadAire?>) {
         chart.description.text = "Eje Y -> μg/m3, Eje X -> fecha"
-        chart.description.setPosition(1000f,100f)
+        chart.description.setPosition(1000f, 100f)
         chart.description.isEnabled = true
 
 
@@ -146,7 +162,7 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
 
         var listaFechas = mutableListOf<String>()
         result.map {
-            it?.fecha?.let { it1 -> listaFechas.add(it1.substring(IntRange(0,9))) }
+            it?.fecha?.let { it1 -> listaFechas.add(it1.substring(IntRange(0, 9))) }
         }
         val xFormater = IndexAxisValueFormatter(listaFechas.toTypedArray())
 
@@ -211,23 +227,32 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
         var date = 0f
         result.map { data ->
             data?.contaminantes?.get("co")?.let {
-                valuesCO.add(Entry(date, it?.toFloat())) }
+                valuesCO.add(Entry(date, it?.toFloat()))
+            }
             data?.contaminantes?.get("no2")?.let {
-                valuesNO2.add(Entry(date, it?.toFloat()))}
+                valuesNO2.add(Entry(date, it?.toFloat()))
+            }
             data?.contaminantes?.get("o3")?.let {
-                valuesO3.add(Entry(date, it?.toFloat())) }
+                valuesO3.add(Entry(date, it?.toFloat()))
+            }
             data?.contaminantes?.get("so2")?.let {
-                valuesSO2.add(Entry(date, it?.toFloat())) }
+                valuesSO2.add(Entry(date, it?.toFloat()))
+            }
             data?.contaminantes?.get("pm25")?.let {
-                valuesPM25.add(Entry(date, it?.toFloat())) }
+                valuesPM25.add(Entry(date, it?.toFloat()))
+            }
             data?.contaminantes?.get("pm10")?.let {
-                valuesPM10.add(Entry(date, it?.toFloat())) }
+                valuesPM10.add(Entry(date, it?.toFloat()))
+            }
             data?.contaminantes?.get("no")?.let {
-                valuesNO.add(Entry(date, it?.toFloat())) }
+                valuesNO.add(Entry(date, it?.toFloat()))
+            }
             data?.contaminantes?.get("nh3")?.let {
-                valuesNH3.add(Entry(date, it?.toFloat())) }
+                valuesNH3.add(Entry(date, it?.toFloat()))
+            }
             data?.contaminantes?.get("co2")?.let {
-                valuesCO2.add(Entry(date, it?.toFloat())) }
+                valuesCO2.add(Entry(date, it?.toFloat()))
+            }
             date++
         }
 
@@ -271,7 +296,7 @@ class GraphFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         if (buttonView != null) {
-            when(buttonView.id){
+            when (buttonView.id) {
                 R.id.switchCO -> actualizaCO(isChecked)
                 R.id.switchNO2 -> actualizaNO2(isChecked)
                 R.id.switchO3 -> actualizaO3(isChecked)
